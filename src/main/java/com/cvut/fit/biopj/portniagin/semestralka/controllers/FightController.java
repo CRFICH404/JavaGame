@@ -36,4 +36,5 @@ public class FightController extends SceneController implements Initializable {
         SceneController.stage.setScene(TowerOfGodApplication.getLastScene());
         TowerOfGodApplication.setLastScene(forfeitButton.getScene());
     }
+
 }

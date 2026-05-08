@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<SplitPane fx:id="contentAreaSplitPane" dividerPositions="0.3" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cvut.fit.biopj.portniagin.semestralka.controllers.PreparationScreenController">
+   <items>
+      <VBox fx:id="inventoryAndHPBarVBox" alignment="BOTTOM_CENTER" />
+      <VBox alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0">
+         <children>
+            <VBox fx:id="shopVBox" />
+            <HBox fx:id="levelAndItemsHBox" alignment="CENTER_LEFT" prefHeight="100.0" />
+         </children>
+      </VBox>
+   </items>
+</SplitPane>

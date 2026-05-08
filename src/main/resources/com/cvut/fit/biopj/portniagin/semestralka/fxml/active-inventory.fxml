@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<GridPane fx:id="activeInventoryGridPane" alignment="CENTER" gridLinesVisible="true" prefHeight="400.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cvut.fit.biopj.portniagin.semestralka.controllers.ActiveInventoryController">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <padding>
+      <Insets bottom="60.0" left="20.0" right="20.0" top="60.0" />
+   </padding>
+   <children>
+      <Button fx:id="invButton1" mnemonicParsing="false" onAction="#onInvButton1Click" text="Button" />
+      <Button fx:id="invButton2" mnemonicParsing="false" onAction="#onInvButton2Click" text="Button" GridPane.columnIndex="1" />
+      <Button fx:id="invButton3" mnemonicParsing="false" onAction="#onInvButton3Click" text="Button" GridPane.rowIndex="1" />
+      <Button fx:id="invButton4" mnemonicParsing="false" onAction="#onInvButton4Click" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <Button fx:id="invButton5" mnemonicParsing="false" onAction="#onInvButton5Click" text="Button" GridPane.rowIndex="2" />
+      <Button fx:id="invButton6" mnemonicParsing="false" onAction="#onInvButton6Click" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+   </children>
+</GridPane>

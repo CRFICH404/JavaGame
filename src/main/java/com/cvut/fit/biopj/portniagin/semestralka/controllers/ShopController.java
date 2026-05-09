@@ -1,14 +1,12 @@
 package com.cvut.fit.biopj.portniagin.semestralka.controllers;
 
-import com.cvut.fit.biopj.portniagin.semestralka.SceneLoader;
-import com.cvut.fit.biopj.portniagin.semestralka.TowerOfGodApplication;
+import com.cvut.fit.biopj.portniagin.semestralka.application.SceneLoader;
+import com.cvut.fit.biopj.portniagin.semestralka.application.TowerOfGodApplication;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;

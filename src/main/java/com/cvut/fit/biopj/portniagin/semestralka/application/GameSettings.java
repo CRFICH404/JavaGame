@@ -1,6 +1,4 @@
-package com.cvut.fit.biopj.portniagin.semestralka;
-
-import javafx.stage.Stage;
+package com.cvut.fit.biopj.portniagin.semestralka.application;
 
 public class GameSettings {
     private static double width = 1280;

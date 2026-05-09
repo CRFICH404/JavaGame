@@ -1,6 +1,5 @@
 package com.cvut.fit.biopj.portniagin.semestralka.controllers;
 
-import com.cvut.fit.biopj.portniagin.semestralka.SceneLoader;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.HBox;

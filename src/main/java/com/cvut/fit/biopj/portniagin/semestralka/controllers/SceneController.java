@@ -1,6 +1,6 @@
 package com.cvut.fit.biopj.portniagin.semestralka.controllers;
 
-import com.cvut.fit.biopj.portniagin.semestralka.SceneLoader;
+import com.cvut.fit.biopj.portniagin.semestralka.application.SceneLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;

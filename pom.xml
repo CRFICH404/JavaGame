@@ -76,7 +76,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                com.cvut.fit.biopj.portniagin.semestralka/com.cvut.fit.biopj.portniagin.semestralka.TowerOfGodApplication
+                                com.cvut.fit.biopj.portniagin.semestralka/com.cvut.fit.biopj.portniagin.semestralka.application.TowerOfGodApplication
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>

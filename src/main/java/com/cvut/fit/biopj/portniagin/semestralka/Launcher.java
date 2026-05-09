@@ -1,5 +1,6 @@
 package com.cvut.fit.biopj.portniagin.semestralka;
 
+import com.cvut.fit.biopj.portniagin.semestralka.application.TowerOfGodApplication;
 import javafx.application.Application;
 
 public class Launcher {

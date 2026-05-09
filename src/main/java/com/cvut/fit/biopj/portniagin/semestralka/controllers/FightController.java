@@ -1,6 +1,6 @@
 package com.cvut.fit.biopj.portniagin.semestralka.controllers;
 
-import com.cvut.fit.biopj.portniagin.semestralka.TowerOfGodApplication;
+import com.cvut.fit.biopj.portniagin.semestralka.application.TowerOfGodApplication;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

@@ -1,4 +1,4 @@
-package com.cvut.fit.biopj.portniagin.semestralka;
+package com.cvut.fit.biopj.portniagin.semestralka.application;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;

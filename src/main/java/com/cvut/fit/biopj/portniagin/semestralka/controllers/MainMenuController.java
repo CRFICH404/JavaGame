@@ -1,8 +1,8 @@
 package com.cvut.fit.biopj.portniagin.semestralka.controllers;
 
-import com.cvut.fit.biopj.portniagin.semestralka.GameSettings;
-import com.cvut.fit.biopj.portniagin.semestralka.TowerOfGodApplication;
-import com.cvut.fit.biopj.portniagin.semestralka.SceneLoader;
+import com.cvut.fit.biopj.portniagin.semestralka.application.GameSettings;
+import com.cvut.fit.biopj.portniagin.semestralka.application.TowerOfGodApplication;
+import com.cvut.fit.biopj.portniagin.semestralka.application.SceneLoader;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;

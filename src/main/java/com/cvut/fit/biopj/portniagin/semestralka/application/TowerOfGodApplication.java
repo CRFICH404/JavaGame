@@ -1,4 +1,4 @@
-package com.cvut.fit.biopj.portniagin.semestralka;
+package com.cvut.fit.biopj.portniagin.semestralka.application;
 import com.cvut.fit.biopj.portniagin.semestralka.controllers.SceneController;
 import javafx.application.Application;
 import javafx.scene.Scene;

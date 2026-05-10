@@ -9,7 +9,7 @@
       <VBox fx:id="inventoryAndHPBarVBox" alignment="BOTTOM_CENTER" />
       <VBox alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0">
          <children>
-            <VBox fx:id="shopVBox" />
+            <VBox fx:id="shopVBox" alignment="CENTER" />
             <HBox fx:id="levelAndItemsHBox" alignment="CENTER_LEFT" prefHeight="100.0" />
          </children>
       </VBox>

@@ -1,7 +1,6 @@
 package com.cvut.fit.biopj.portniagin.semestralka.controllers;
 
 import com.cvut.fit.biopj.portniagin.semestralka.application.SceneLoader;
-import com.cvut.fit.biopj.portniagin.semestralka.application.TowerOfGodApplication;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -30,7 +29,7 @@ public class ShopController extends SceneController implements Initializable {
 
     @FXML
     private void onFightButtonClick(ActionEvent event) throws IOException {
-        TowerOfGodApplication.setLastScene(SceneController.stage.getScene());
+        SceneLoader.setLastScene(SceneController.stage.getScene());
         SceneController.setNewScene(SceneLoader.getScene("fight-scene.fxml"));
     }
     @FXML

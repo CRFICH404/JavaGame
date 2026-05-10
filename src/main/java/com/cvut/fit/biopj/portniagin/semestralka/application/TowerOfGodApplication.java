@@ -8,14 +8,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class TowerOfGodApplication extends Application {
-    private static Scene lastScene;
-    public static void setLastScene(Scene lastScene) {
-        TowerOfGodApplication.lastScene = lastScene;
-    }
-    public static Scene getLastScene() {
-        return lastScene;
-    }
-
+    private final static EventBus eventBus =  new EventBus();
     @Override
     public void start(Stage stage) throws IOException {
         SceneController.setStage(stage);
@@ -25,8 +18,7 @@ public class TowerOfGodApplication extends Application {
         stage.setScene(SceneLoader.getScene("main-menu.fxml"));
         stage.show();
     }
-
-    public static void setLastScene (Button button){
-        lastScene = button.getScene();
+    public static EventBus getEventBus() {
+        return eventBus;
     }
 }

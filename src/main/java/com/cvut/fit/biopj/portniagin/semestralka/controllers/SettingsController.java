@@ -1,5 +1,6 @@
 package com.cvut.fit.biopj.portniagin.semestralka.controllers;
 
+import com.cvut.fit.biopj.portniagin.semestralka.application.SceneLoader;
 import com.cvut.fit.biopj.portniagin.semestralka.application.TowerOfGodApplication;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,7 +14,7 @@ public class SettingsController extends SceneController implements Initializable
     @FXML
     protected void onBackButtonClick(ActionEvent event) {
         Scene lastScene = backButton.getScene();
-        SceneController.setNewScene(backButton, TowerOfGodApplication.getLastScene());
-        TowerOfGodApplication.setLastScene(lastScene);
+        SceneController.setNewScene(backButton, SceneLoader.getLastScene());
+        SceneLoader.setLastScene(lastScene);
     }
 }

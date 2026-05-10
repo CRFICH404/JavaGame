@@ -20,14 +20,14 @@ public class MainMenuController extends SceneController implements Initializable
 
     @FXML
     protected void onPlayButtonClick() throws IOException {
-        TowerOfGodApplication.setLastScene(playButton.getScene());
+        SceneLoader.setLastScene(playButton.getScene());
         setNewScene(playButton, SceneLoader.getScene("preparation-screen.fxml"));
         System.out.println("Play button clicked");
     }
     @FXML
     protected void onSettingsButtonClick() throws IOException {
         Stage stage = (Stage) settingsButton.getScene().getWindow();
-        TowerOfGodApplication.setLastScene(settingsButton.getScene());
+        SceneLoader.setLastScene(settingsButton.getScene());
         stage.setScene(SceneLoader.getScene("settings-menu.fxml", GameSettings.getWidth(), GameSettings.getHeight()));
         System.out.println("Settings button clicked");
     }

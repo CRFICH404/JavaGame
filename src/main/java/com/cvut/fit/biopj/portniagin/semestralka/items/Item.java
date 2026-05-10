@@ -7,12 +7,13 @@ import com.cvut.fit.biopj.portniagin.semestralka.events.ItemTriggerOnItemEvent;
 import com.cvut.fit.biopj.portniagin.semestralka.events.ItemTriggerOnPlayerDummyEvent;
 import com.cvut.fit.biopj.portniagin.semestralka.events.StartOfCombatEvent;
 import com.cvut.fit.biopj.portniagin.semestralka.statusEffects.StatusEffect;
+import com.cvut.fit.biopj.portniagin.semestralka.statusEffects.StatusEffectsList;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 
-public class Item implements Callable, ItemTriggerListener, StartOfCombatListener {
+public class Item implements Callable{
 
     private int id;
     private int rarity;
@@ -22,7 +23,7 @@ public class Item implements Callable, ItemTriggerListener, StartOfCombatListene
     private float critChance;
     private float itemCooldown;
     private String itemName;
-    private List<StatusEffect> effects;
+    private StatusEffectsList effects;
 
     public Item(int id, int rarity, int itemCost, int itemDamage, int itemLevel, float critChance, float itemCooldown, String itemName, ArrayList<StatusEffect> effects) {
         this.id = id;
@@ -33,7 +34,7 @@ public class Item implements Callable, ItemTriggerListener, StartOfCombatListene
         this.critChance = critChance;
         this.itemCooldown = itemCooldown;
         this.itemName = itemName;
-        this.effects = effects;
+        this.effects = new StatusEffectsList(effects);
     }
 
     public Item(int id, int rarity, int itemCost, int itemDamage, int itemLevel, float critChance, float itemCooldown, String itemName, StatusEffect effect) {
@@ -45,35 +46,25 @@ public class Item implements Callable, ItemTriggerListener, StartOfCombatListene
         this.critChance = critChance;
         this.itemCooldown = itemCooldown;
         this.itemName = itemName;
-        this.effects = new ArrayList<StatusEffect>();
-        this.effects.add(effect);
+        this.effects = new StatusEffectsList(effect);
+    }
+
+    public Item(String itemName, float itemCooldown, float critChance, int itemLevel, int itemDamage, int itemCost, int rarity, int id) {
+        this.itemName = itemName;
+        this.itemCooldown = itemCooldown;
+        this.critChance = critChance;
+        this.itemLevel = itemLevel;
+        this.itemDamage = itemDamage;
+        this.itemCost = itemCost;
+        this.rarity = rarity;
+        this.id = id;
+        this.effects = new StatusEffectsList();
     }
 
     @Override
     public Object call() throws Exception {
         return null;
     }
-
-    @Override
-    public void onEvent(ItemTiggerEvent event) {
-        //todo
-    }
-
-    @Override
-    public void onEvent(ItemTriggerOnItemEvent event) {
-        //todo
-    }
-
-    @Override
-    public void onEvent(ItemTriggerOnPlayerDummyEvent event) {
-        //todo
-    }
-
-    @Override
-    public void onEvent(StartOfCombatEvent event) {
-        //todo
-    }
-
 
     public float getCritChance() {
         return critChance;
@@ -139,11 +130,11 @@ public class Item implements Callable, ItemTriggerListener, StartOfCombatListene
         this.itemName = itemName;
     }
 
-    public List<StatusEffect> getEffects() {
+    public StatusEffectsList getEffects() {
         return effects;
     }
 
-    public void setEffects(List<StatusEffect> effects) {
-        this.effects = effects;
+    public void setEffects(ArrayList<StatusEffect> effects) {
+        this.effects.setEffects(effects);
     }
 }

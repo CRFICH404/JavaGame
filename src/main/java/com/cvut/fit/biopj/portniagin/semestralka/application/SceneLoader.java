@@ -7,7 +7,7 @@ import javafx.scene.Scene;
 import java.io.IOException;
 
 public class SceneLoader {
-
+    private static Scene lastScene;
     public static Scene getScene(String path) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(TowerOfGodApplication.class.getResource(ResourceFinder.getPathToFXML(path)));
         return new Scene(fxmlLoader.load(), GameSettings.getWidth(), GameSettings.getHeight());
@@ -21,4 +21,10 @@ public class SceneLoader {
         return (Node) fxmlLoader.load();
     }
 
+    public static Scene getLastScene() {
+        return lastScene;
+    }
+    public static void setLastScene(Scene lastScene) {
+        SceneLoader.lastScene = lastScene;
+    }
 }

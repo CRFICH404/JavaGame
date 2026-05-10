@@ -1,4 +1,4 @@
-package com.cvut.fit.biopj.portniagin.semestralka;
+package com.cvut.fit.biopj.portniagin.semestralka.application;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;

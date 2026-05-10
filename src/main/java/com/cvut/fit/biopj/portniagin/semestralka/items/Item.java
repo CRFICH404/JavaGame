@@ -1,13 +1,18 @@
 package com.cvut.fit.biopj.portniagin.semestralka.items;
 
+import com.cvut.fit.biopj.portniagin.semestralka.eventListeners.ItemTriggerListener;
+import com.cvut.fit.biopj.portniagin.semestralka.eventListeners.StartOfCombatListener;
+import com.cvut.fit.biopj.portniagin.semestralka.events.ItemTiggerEvent;
+import com.cvut.fit.biopj.portniagin.semestralka.events.ItemTriggerOnItemEvent;
+import com.cvut.fit.biopj.portniagin.semestralka.events.ItemTriggerOnPlayerDummyEvent;
+import com.cvut.fit.biopj.portniagin.semestralka.events.StartOfCombatEvent;
 import com.cvut.fit.biopj.portniagin.semestralka.statusEffects.StatusEffect;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 
-public class Item implements Callable {
+public class Item implements Callable, ItemTriggerListener, StartOfCombatListener {
 
     private int id;
     private int rarity;
@@ -41,7 +46,7 @@ public class Item implements Callable {
         this.itemCooldown = itemCooldown;
         this.itemName = itemName;
         this.effects = new ArrayList<StatusEffect>();
-        addEffect(effect);
+        this.effects.add(effect);
     }
 
     @Override
@@ -49,28 +54,26 @@ public class Item implements Callable {
         return null;
     }
 
-    public void addEffect(StatusEffect effect) {
-        boolean found = false;
-        if (effects != null) {
-            for (StatusEffect e : effects) {
-                if(e.equals(effect)) {
-                    e.setAmount(e.getAmount() + effect.getAmount());
-                    found = true;
-                }
-            }
-            if(!found) {effects.add(effect);}
-        }
-        else {
-            effects = new ArrayList<StatusEffect>();
-            effects.add(effect);
-        }
+    @Override
+    public void onEvent(ItemTiggerEvent event) {
+        //todo
     }
 
-    public void mergeEffectList(@NotNull List<StatusEffect> list) {
-        for (StatusEffect e : list) {
-            addEffect(e);
-        }
+    @Override
+    public void onEvent(ItemTriggerOnItemEvent event) {
+        //todo
     }
+
+    @Override
+    public void onEvent(ItemTriggerOnPlayerDummyEvent event) {
+        //todo
+    }
+
+    @Override
+    public void onEvent(StartOfCombatEvent event) {
+        //todo
+    }
+
 
     public float getCritChance() {
         return critChance;

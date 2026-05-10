@@ -1,14 +1,17 @@
 package com.cvut.fit.biopj.portniagin.semestralka.statusEffects;
 
-public class StatusEffect {
-    String effectType;
+import com.cvut.fit.biopj.portniagin.semestralka.enums.StatusEffectEnum;
+import com.cvut.fit.biopj.portniagin.semestralka.events.StatusEffectAdditionToItemEvent;
+import com.cvut.fit.biopj.portniagin.semestralka.events.StatusEffectAdditionToPlayerDummyEvent;
+import com.cvut.fit.biopj.portniagin.semestralka.events.StatusEffectTriggerEvent;
+
+public abstract class StatusEffect implements StatusEffectTriggerListener, StatusEffectAdditionListener {
     int amount;
-    public StatusEffect(String effectType, int amount) {
-        this.effectType = effectType;
-        this.amount = amount;
+    public StatusEffect() {
+        this.amount = 0;
     }
-    public String getEffectType() {
-        return effectType;
+    public StatusEffect(int amount) {
+        this.amount = amount;
     }
     public int getAmount() {
         return amount;
@@ -17,10 +20,19 @@ public class StatusEffect {
         this.amount = amount;
     }
 
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (effectType.equals(((StatusEffect) o).getEffectType())) return true;
-        return false;
+    @Override
+    public void onStatusEffectAdditionToItem(StatusEffectAdditionToItemEvent event){
+        event.getTarget().getEffects().add(event.getEffect());
     }
+
+    @Override
+    public void onStatusEffectAdditionToPlayerDummy(StatusEffectAdditionToPlayerDummyEvent event){
+        event.getTarget().getEffects().addEffect(event.getEffect());
+    }
+
+    @Override
+    public abstract void onStatusEffectTrigger(StatusEffectTriggerEvent event);
+    public abstract StatusEffectEnum getStatusEffectEnum();
+    public abstract boolean equals (Object o);
+
 }

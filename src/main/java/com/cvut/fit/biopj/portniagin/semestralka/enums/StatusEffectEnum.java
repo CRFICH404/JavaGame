@@ -1,15 +1,16 @@
 package com.cvut.fit.biopj.portniagin.semestralka.enums;
 
-public enum StatusEffect {
+public enum StatusEffectEnum {
     BURN("Burn"),
     BLEED("Bleed"),
     POISON("Poison"),
     HEAL("Heal"),
-    SHIELD("Shield");
+    SHIELD("Shield"),
+    SHOCK("Shock");
 
     private final String effect;
 
-    StatusEffect(String effect) {
+    StatusEffectEnum(String effect) {
         this.effect = effect;
     }
 

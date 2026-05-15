@@ -1,5 +1,6 @@
 package com.cvut.fit.biopj.portniagin.semestralka.player;
 
+import com.cvut.fit.biopj.portniagin.semestralka.items.Inventory;
 import com.cvut.fit.biopj.portniagin.semestralka.statusEffects.StatusEffect;
 import com.cvut.fit.biopj.portniagin.semestralka.statusEffects.StatusEffectsList;
 import org.jetbrains.annotations.NotNull;
@@ -15,25 +16,32 @@ public class PlayerDummy {
     private StatusEffectsList effects;
     private Inventory inventory;
     private Inventory activeInventory;
+    private final Player dummyHolder;
 
-    public PlayerDummy() {
+    public PlayerDummy(Player player) {
         this.playerHP = 500;
         this.playerXP = 0;
         this.playerLVL = 1;
         this.playerMoney = 60;
         this.effects = new StatusEffectsList();
-        this.inventory = new Inventory();
-        this.activeInventory = new Inventory();
+        this.inventory = new Inventory(this);
+        this.activeInventory = new Inventory(this);
+        this.dummyHolder = player;
     }
 
-    public PlayerDummy(int playerHP, int playerXP, int playerLVL, int playerMoney, ArrayList<StatusEffect> effects, Inventory inventory, Inventory activeInventory) {
+    public PlayerDummy(int playerHP, int playerXP, int playerLVL, int playerMoney, Player dummyHolder) {
         this.playerHP = playerHP;
         this.playerXP = playerXP;
         this.playerLVL = playerLVL;
         this.playerMoney = playerMoney;
-        this.effects = (effects == null) ? new StatusEffectsList() : new StatusEffectsList(effects);
-        this.inventory = inventory;
-        this.activeInventory = activeInventory;
+        this.effects = new StatusEffectsList();
+        this.inventory = new Inventory(this);
+        this.activeInventory = new Inventory(this);
+        this.dummyHolder = dummyHolder;
+    }
+
+    public Player getDummyHolder() {
+        return dummyHolder;
     }
 
     public int getPlayerHP() {

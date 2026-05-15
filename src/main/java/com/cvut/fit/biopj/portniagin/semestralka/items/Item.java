@@ -1,7 +1,9 @@
 package com.cvut.fit.biopj.portniagin.semestralka.items;
 
+import com.cvut.fit.biopj.portniagin.semestralka.application.TowerOfGodApplication;
 import com.cvut.fit.biopj.portniagin.semestralka.eventListeners.ItemTriggerListener;
 import com.cvut.fit.biopj.portniagin.semestralka.eventListeners.StartOfCombatListener;
+import com.cvut.fit.biopj.portniagin.semestralka.events.ItemCooldownChangedEvent;
 import com.cvut.fit.biopj.portniagin.semestralka.events.ItemTiggerEvent;
 import com.cvut.fit.biopj.portniagin.semestralka.events.ItemTriggerOnItemEvent;
 import com.cvut.fit.biopj.portniagin.semestralka.events.ItemTriggerOnPlayerDummyEvent;
@@ -63,6 +65,7 @@ public class Item implements Callable{
 
     @Override
     public Object call() throws Exception {
+        TowerOfGodApplication.getEventBus().fire(new ItemTiggerEvent(this));
         return null;
     }
 
@@ -120,6 +123,7 @@ public class Item implements Callable{
 
     public void setItemCooldown(float itemCooldown) {
         this.itemCooldown = itemCooldown;
+        TowerOfGodApplication.getEventBus().fire(new ItemCooldownChangedEvent(this));
     }
 
     public String getItemName() {

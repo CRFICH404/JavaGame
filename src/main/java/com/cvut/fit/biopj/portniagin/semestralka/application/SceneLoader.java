@@ -1,5 +1,6 @@
 package com.cvut.fit.biopj.portniagin.semestralka.application;
 
+import com.cvut.fit.biopj.portniagin.semestralka.items.Item;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;

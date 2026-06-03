@@ -44,4 +44,9 @@ public class StatusEffectHeal extends StatusEffect{
     public void onEvent(StatusEffectTriggerEvent event) {
 
     }
+
+    @Override
+    public String toString(){
+        return String.format("%s:%d", statusEffectEnum.getEffect(), amount);
+    }
 }

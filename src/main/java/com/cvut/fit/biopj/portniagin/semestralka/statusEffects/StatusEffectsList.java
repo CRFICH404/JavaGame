@@ -47,4 +47,14 @@ public class StatusEffectsList {
     public void setEffects(@NotNull ArrayList<StatusEffect> effects) {
         this.effects = effects;
     }
+
+    @Override
+    public String toString(){
+        StringBuilder str = new StringBuilder();
+        for (StatusEffect e : effects) {
+            str.append(e.toString());
+            str.append(" ");
+        }
+        return str.toString();
+    }
 }

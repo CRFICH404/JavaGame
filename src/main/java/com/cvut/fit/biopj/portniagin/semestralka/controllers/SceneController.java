@@ -5,6 +5,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -34,6 +35,9 @@ public class SceneController implements Initializable {
             case "bottom": borderPane.setBottom(SceneLoader.getNode(fxmlFile));
             case "top": borderPane.setTop(SceneLoader.getNode(fxmlFile));
         }
+    }
+    public void loadViewToContainer(String fxmlFile, GridPane gridPane) throws IOException{
+        gridPane.getChildren().add(SceneLoader.getNode(fxmlFile));
     }
     public static void setNewScene(Button button, Scene newScene){
         Stage stage = (Stage) button.getScene().getWindow();

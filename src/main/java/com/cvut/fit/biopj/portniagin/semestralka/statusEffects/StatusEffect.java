@@ -24,4 +24,8 @@ public abstract class StatusEffect implements StatusEffectActionListener {
     public abstract StatusEffectEnum getStatusEffectEnum();
     public abstract boolean equals (Object o);
 
+    public String toString(){
+        return String.format("%d", amount);
+    }
+
 }

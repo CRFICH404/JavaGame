@@ -35,7 +35,7 @@
       </HBox>
       <HBox alignment="CENTER">
          <children>
-            <GridPane alignment="CENTER" gridLinesVisible="true" prefHeight="400.0" prefWidth="800.0">
+            <GridPane fx:id="itemShopGridPane" alignment="BOTTOM_CENTER" gridLinesVisible="true" prefHeight="400.0" prefWidth="800.0">
               <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />

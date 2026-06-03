@@ -5,6 +5,9 @@ module com.cvut.fit.biopj.portniagin.semestralka {
     requires org.controlsfx.controls;
     requires org.kordamp.bootstrapfx.core;
     requires annotations;
+    requires org.apache.poi.ooxml;
+    requires java.desktop;
+    requires javafx.swing;
 
     opens com.cvut.fit.biopj.portniagin.semestralka to javafx.fxml;
     exports com.cvut.fit.biopj.portniagin.semestralka;

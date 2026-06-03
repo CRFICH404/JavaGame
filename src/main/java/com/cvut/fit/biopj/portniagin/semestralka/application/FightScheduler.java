@@ -1,7 +1,7 @@
 package com.cvut.fit.biopj.portniagin.semestralka.application;
 
 import com.cvut.fit.biopj.portniagin.semestralka.events.ItemCooldownChangedEvent;
-import com.cvut.fit.biopj.portniagin.semestralka.items.ActiveInventory;
+import com.cvut.fit.biopj.portniagin.semestralka.items.Inventory;
 import com.cvut.fit.biopj.portniagin.semestralka.items.Item;
 
 import java.util.Map;
@@ -12,7 +12,7 @@ public class FightScheduler {
     private final ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
     private final Map<Item, ScheduledFuture<?>> taskMap = new ConcurrentHashMap<>();
 
-    public void start(ActiveInventory inventory) {
+    public void start(Inventory inventory) {
         for (Item item : inventory.getItems()) {
             schedule(item);
         }
@@ -33,7 +33,7 @@ public class FightScheduler {
         ScheduledFuture<?> future = executor.scheduleWithFixedDelay(
                 () -> {
                     try {
-                        item.call();
+                        item.run();
                     } catch (Exception e) {
                         Thread.currentThread().interrupt();
                     }

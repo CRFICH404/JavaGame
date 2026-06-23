@@ -3,6 +3,11 @@ package com.cvut.fit.biopj.portniagin.semestralka.controllers;
 import com.cvut.fit.biopj.portniagin.semestralka.application.ItemShop;
 import com.cvut.fit.biopj.portniagin.semestralka.application.ResourceFinder;
 import com.cvut.fit.biopj.portniagin.semestralka.application.SceneLoader;
+import com.cvut.fit.biopj.portniagin.semestralka.application.TowerOfGodApplication;
+import com.cvut.fit.biopj.portniagin.semestralka.events.ItemShopUpdatedEvent;
+import com.cvut.fit.biopj.portniagin.semestralka.events.LevelUpEvent;
+import com.cvut.fit.biopj.portniagin.semestralka.events.RemoveItemFromShopEvent;
+import com.cvut.fit.biopj.portniagin.semestralka.events.RerollEvent;
 import com.cvut.fit.biopj.portniagin.semestralka.items.Item;
 import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
@@ -35,9 +40,12 @@ public class ShopController extends SceneController implements Initializable {
     @FXML public Button freezeButton;
     @FXML public Button levelUpButton;
 
+    private int levelUpCost = 30;
     @Override
     public void initialize(URL url, ResourceBundle rb){
-        if(ItemShop.getItems().isEmpty()){ItemShop.populateItemShop();}
+        TowerOfGodApplication.getItemShop().repopulateItemShop();
+        TowerOfGodApplication.getEventBus().addListener(RerollEvent.class, this::onRerollEvent);
+        TowerOfGodApplication.getEventBus().addListener(ItemShopUpdatedEvent.class, this::onItemShopUpdatedEvent);
         try {
             loadViewToContainer("session-state.fxml", sessionStateHBox);
             populateShopGridPane();
@@ -55,44 +63,62 @@ public class ShopController extends SceneController implements Initializable {
     }
     @FXML
     private void onRerollButtonClick(ActionEvent event) throws IOException {
-        System.out.println("Reroll button clicked");
-        ItemShop.populateItemShop();
-        Platform.runLater(()->{
-            itemShopGridPane.getChildren().clear();
-            populateShopGridPane();
-        });
+        int rerollCost = 3;
+        if(TowerOfGodApplication.getPlayer().getPlayerDummy().getPlayerMoney() >= rerollCost){
+            TowerOfGodApplication.getEventBus().fire(new RerollEvent(rerollCost));
+        }
+        else{
+            System.out.println("Not enough money for reroll");
+        }
     }
     @FXML
     private void onFreezeButtonClick(ActionEvent event) throws IOException {
         System.out.println("Freeze button clicked");
-        ItemShop.switchFrozen();
-        System.out.println("Frozen: " + ItemShop.isFrozen());
+        TowerOfGodApplication.getItemShop().switchFrozen();
+        System.out.println("Frozen: " + TowerOfGodApplication.getItemShop().isFrozen());
     }
 
     @FXML
     private void onLevelUpButtonClick(ActionEvent event) throws IOException {
-        System.out.println("Level up button clicked");
+        if(TowerOfGodApplication.getPlayer().getPlayerDummy().getPlayerMoney() >= levelUpCost){
+            TowerOfGodApplication.getEventBus().fire(new LevelUpEvent(levelUpCost));
+            levelUpCost += ((TowerOfGodApplication.getPlayer().getPlayerDummy().getPlayerLVL()) * levelUpCost);
+            System.out.println("Level up successful");
+        }
+        else {
+            System.out.println("Not enough money for level up");
+        }
+    }
+
+    public void onItemShopUpdatedEvent(ItemShopUpdatedEvent event) {
+        Platform.runLater(() -> {
+            itemShopGridPane.getChildren().clear();
+            populateShopGridPane();
+        });
+    }
+
+    public void onRerollEvent(RerollEvent event) {
+        try {
+            Platform.runLater(()->{
+                itemShopGridPane.getChildren().clear();
+                populateShopGridPane();
+            });
+            System.out.println("Reroll successful");
+        }
+        catch (Exception e){
+            throw new RuntimeException(e);
+        }
     }
 
     private void populateShopGridPane(){
         int iter = 0;
-        for(Item item : ItemShop.getItems()){
+        for(Item item : TowerOfGodApplication.getItemShop().getItems()){
+            if(item == null){iter++; continue;}
             System.out.println(String.format("Adding item %s", item.toString()));
             try {
-                VBox vBox = (VBox) SceneLoader.getNode("item-buy-vbox.fxml");
-                Pane pane = (Pane) SceneLoader.getNode("item-pane.fxml");
-
-                for(Node node : pane.getChildren()){
-                    if(node instanceof ImageView){
-                        BufferedImage bufferedImage = ImageIO.read(new File(ResourceFinder.getPathToItemGraphics(item.getItemName())));
-                        ((ImageView)node).setImage(SwingFXUtils.toFXImage(bufferedImage, null));
-                    }
-                }
-
-                vBox.getChildren().add(pane);
-
+                int [] cords = {iter/4, iter%4};
                 System.out.println(String.format("Adding to Col: %d, Row: %d.", iter % 4, iter / 4));
-                itemShopGridPane.add(vBox, iter % 4, iter / 4);
+                itemShopGridPane.add(SceneLoader.getNode("item-pane.fxml", item, cords), iter % 4, iter / 4);
                 iter++;
             } catch (IOException e) {
                 throw new RuntimeException(e);

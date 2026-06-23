@@ -106,6 +106,9 @@ public class Item implements Runnable{
     public int getItemDamage() {
         return itemDamage;
     }
+    public int getItemMulticast() {
+        return itemMulticast;
+    }
 
     public void setItemDamage(int itemDamage) {
         this.itemDamage = itemDamage;

@@ -2,6 +2,7 @@ package com.cvut.fit.biopj.portniagin.semestralka.controllers;
 
 import com.cvut.fit.biopj.portniagin.semestralka.application.SceneLoader;
 import com.cvut.fit.biopj.portniagin.semestralka.application.TowerOfGodApplication;
+import com.cvut.fit.biopj.portniagin.semestralka.events.StartOfCombatEvent;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -21,6 +22,7 @@ public class FightController extends SceneController implements Initializable {
     @FXML public HBox sessionStateVBox;
     @FXML public VBox playerDummyVBox;
     @FXML public VBox enemyDummyVBox;
+    @FXML public Button startOfCombatButton;
 
     @Override
     public void initialize(URL url, ResourceBundle rb){
@@ -32,10 +34,18 @@ public class FightController extends SceneController implements Initializable {
             throw new RuntimeException(e);
         }
     }
+
+
     @FXML
     public void onForfeitButtonClick(ActionEvent actionEvent) {
         SceneController.stage.setScene(SceneLoader.getLastScene());
         SceneLoader.setLastScene(forfeitButton.getScene());
+    }
+
+    public void onStartOfCombatButtonClicked(ActionEvent actionEvent) {
+        startOfCombatButton.getScene().getWindow().hide();
+        System.out.println("Start of Combat Button clicked");
+        TowerOfGodApplication.getEventBus().fire(new StartOfCombatEvent());
     }
 
 }

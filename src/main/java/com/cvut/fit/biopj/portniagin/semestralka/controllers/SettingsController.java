@@ -17,4 +17,5 @@ public class SettingsController extends SceneController implements Initializable
         SceneController.setNewScene(backButton, SceneLoader.getLastScene());
         SceneLoader.setLastScene(lastScene);
     }
+
 }

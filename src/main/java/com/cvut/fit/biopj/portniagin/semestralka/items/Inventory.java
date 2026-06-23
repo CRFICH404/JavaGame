@@ -19,6 +19,9 @@ public class Inventory {
     public PlayerDummy getInventoryHolder() {
         return inventoryHolder;
     }
+    public void setInventoryHolder(PlayerDummy inventoryHolder) {
+        this.inventoryHolder = inventoryHolder;
+    }
     public List<Item> getItems() {
         return items;
     }

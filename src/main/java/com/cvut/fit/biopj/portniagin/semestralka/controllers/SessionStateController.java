@@ -1,5 +1,7 @@
 package com.cvut.fit.biopj.portniagin.semestralka.controllers;
 
+import com.cvut.fit.biopj.portniagin.semestralka.application.TowerOfGodApplication;
+import com.cvut.fit.biopj.portniagin.semestralka.session.Session;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -17,6 +19,10 @@ public class SessionStateController extends SceneController implements Initializ
 
     @Override
     public void initialize (URL url, ResourceBundle rb){
-
+        Session session = TowerOfGodApplication.getSession();
+        this.dayCounter.setText(String.valueOf(session.getDay()));
+        this.playerHealthCounter.setText(String.valueOf(session.getCurrentHealth())+"/"+session.getMAX_HEALTH());
+        this.winCounter.setText(String.valueOf(session.getCurrentWins())+"/"+session.getMAX_WINS());
     }
+
 }

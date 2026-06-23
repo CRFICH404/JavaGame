@@ -8,6 +8,9 @@ module com.cvut.fit.biopj.portniagin.semestralka {
     requires org.apache.poi.ooxml;
     requires java.desktop;
     requires javafx.swing;
+    requires java.sql;
+    requires org.apache.derby.engine;
+
 
     opens com.cvut.fit.biopj.portniagin.semestralka to javafx.fxml;
     exports com.cvut.fit.biopj.portniagin.semestralka;

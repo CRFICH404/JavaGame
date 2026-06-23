@@ -18,6 +18,7 @@ public class PreparationScreenController extends SceneController implements Init
     public void initialize (URL url, ResourceBundle rb){
         inventoryAndHPBarVBox.getChildren().clear();
         try {
+            loadViewToContainer("user-info.fxml", inventoryAndHPBarVBox);
             loadViewToContainer("inventory-and-hp.fxml", inventoryAndHPBarVBox);
             loadViewToContainer("money-level-inventory.fxml", levelAndItemsHBox);
             loadViewToContainer("shop-panel.fxml", shopVBox);
@@ -26,4 +27,5 @@ public class PreparationScreenController extends SceneController implements Init
         }
 
     }
+
 }

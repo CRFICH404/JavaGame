@@ -1,55 +1,97 @@
 package com.cvut.fit.biopj.portniagin.semestralka.player;
 
+import com.cvut.fit.biopj.portniagin.semestralka.application.TowerOfGodApplication;
+import com.cvut.fit.biopj.portniagin.semestralka.events.*;
+import com.cvut.fit.biopj.portniagin.semestralka.events.AddToActiveInventoryEvent;
 import com.cvut.fit.biopj.portniagin.semestralka.items.Inventory;
-import com.cvut.fit.biopj.portniagin.semestralka.statusEffects.StatusEffect;
 import com.cvut.fit.biopj.portniagin.semestralka.statusEffects.StatusEffectsList;
-import org.jetbrains.annotations.NotNull;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.apache.poi.ss.formula.functions.T;
 
 public class PlayerDummy {
-    private int playerHP;
+    private int currentHP;
+    private int maxHP;
     private int playerXP;
     private int playerLVL;
     private int playerMoney;
+    private int income;
     private StatusEffectsList effects;
     private Inventory inventory;
-    private Inventory activeInventory;
+    private ActiveInventory activeInventory;
     private final Player dummyHolder;
 
     public PlayerDummy(Player player) {
-        this.playerHP = 500;
+        this.maxHP = 500;
+        this.currentHP = this.maxHP;
         this.playerXP = 0;
         this.playerLVL = 1;
+        this.income = 40;
         this.playerMoney = 60;
         this.effects = new StatusEffectsList();
         this.inventory = new Inventory(this);
-        this.activeInventory = new Inventory(this);
+        this.activeInventory = new ActiveInventory(this);
         this.dummyHolder = player;
+        TowerOfGodApplication.getEventBus().addListener(RerollEvent.class, this::onReroll);
+        TowerOfGodApplication.getEventBus().addListener(LevelUpEvent.class, this::onLevelUp);
+        TowerOfGodApplication.getEventBus().addListener(StartOfDayEvent.class, this::onDayStart);
+        TowerOfGodApplication.getEventBus().addListener(BuyItemEvent.class, this::onBuyItemEvent);
+        TowerOfGodApplication.getEventBus().addListener(AddToActiveInventoryEvent.class, this::onAddToActiveInventoryEvent);
     }
 
-    public PlayerDummy(int playerHP, int playerXP, int playerLVL, int playerMoney, Player dummyHolder) {
-        this.playerHP = playerHP;
-        this.playerXP = playerXP;
+    public PlayerDummy(int maxHP, int playerLVL, Player dummyHolder) {
+        this.maxHP = maxHP;
+        this.currentHP = this.maxHP;
+        this.playerXP = 0;
         this.playerLVL = playerLVL;
-        this.playerMoney = playerMoney;
+        this.income = 40;
+        this.playerMoney = 0;
         this.effects = new StatusEffectsList();
         this.inventory = new Inventory(this);
-        this.activeInventory = new Inventory(this);
+        this.activeInventory = new ActiveInventory(this);
         this.dummyHolder = dummyHolder;
+    }
+
+    public void onReroll(RerollEvent event){
+        this.playerMoney -= event.getRerollCost();
+        TowerOfGodApplication.getEventBus().fire(new MoneyChangeEvent(this.playerMoney));
+    }
+
+    public void onAddToActiveInventoryEvent(AddToActiveInventoryEvent event) {
+        this.activeInventory.addItem(event.getIndex(),  event.getItem());
+    }
+
+    public void onBuyItemEvent(BuyItemEvent event){
+        this.playerMoney -= event.getItem().getItemCost();
+        TowerOfGodApplication.getEventBus().fire(new MoneyChangeEvent(this.playerMoney));
+    }
+
+    public void onLevelUp(LevelUpEvent event){
+        this.playerMoney -= event.getLevelUpCost();
+        TowerOfGodApplication.getEventBus().fire(new MoneyChangeEvent(this.playerMoney));
+        this.maxHP += maxHP * playerLVL / 10;
+        TowerOfGodApplication.getEventBus().fire(new MaxHealthChangeEvent(this.maxHP));
+        this.currentHP = this.maxHP;
+        TowerOfGodApplication.getEventBus().fire(new CurrentHealthChangeEvent(this.currentHP));
+        this.income += 10;
+        TowerOfGodApplication.getEventBus().fire(new IncomeChangeEvent(this.income));
+    }
+
+    public void onDayStart(StartOfDayEvent event){
+        this.playerMoney += income;
+        TowerOfGodApplication.getEventBus().fire(new MoneyChangeEvent(this.playerMoney));
+        this.currentHP = this.maxHP;
+        TowerOfGodApplication.getEventBus().fire(new CurrentHealthChangeEvent(this.currentHP));
     }
 
     public Player getDummyHolder() {
         return dummyHolder;
     }
 
-    public int getPlayerHP() {
-        return playerHP;
+    public int getMaxHP() {
+        return maxHP;
     }
 
-    public void setPlayerHP(int playerHP) {
-        this.playerHP = playerHP;
+    public void setMaxHP(int maxHP) {
+        this.maxHP = maxHP;
     }
 
     public int getPlayerXP() {
@@ -90,11 +132,19 @@ public class PlayerDummy {
         this.inventory = inventory;
     }
 
-    public Inventory getActiveInventory() {
+    public ActiveInventory getActiveInventory() {
         return activeInventory;
     }
 
-    public void setActiveInventory(Inventory activeInventory) {
+    public void setActiveInventory(ActiveInventory activeInventory) {
         this.activeInventory = activeInventory;
     }
+
+    public int getCurrentHP() { return currentHP; }
+
+    public void setCurrentHP(int currentHP) { this.currentHP = currentHP; }
+
+    public int getIncome() { return income; }
+
+    public void setIncome(int income) { this.income = income; }
 }

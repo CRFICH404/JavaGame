@@ -1,8 +1,11 @@
 package com.cvut.fit.biopj.portniagin.semestralka.controllers;
 
 import com.cvut.fit.biopj.portniagin.semestralka.application.TowerOfGodApplication;
-import com.cvut.fit.biopj.portniagin.semestralka.events.CurrentHealthChangeEvent;
-import com.cvut.fit.biopj.portniagin.semestralka.events.MaxHealthChangeEvent;
+import com.cvut.fit.biopj.portniagin.semestralka.events.EnemyCurrentHealthChangeEvent;
+import com.cvut.fit.biopj.portniagin.semestralka.events.EnemyMaxHealthChangeEvent;
+import com.cvut.fit.biopj.portniagin.semestralka.events.PlayerCurrentHealthChangeEvent;
+import com.cvut.fit.biopj.portniagin.semestralka.events.PlayerMaxHealthChangeEvent;
+import com.cvut.fit.biopj.portniagin.semestralka.player.Player;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -27,21 +30,43 @@ public class HealthBarController extends SceneController implements Initializabl
 
     @Override
     public void initialize (URL url, ResourceBundle rb){
-        this.currentHP = TowerOfGodApplication.getPlayer().getPlayerDummy().getCurrentHP();
-        this.maxHP = TowerOfGodApplication.getPlayer().getPlayerDummy().getMaxHP();
+        Player player = isPlayer ? TowerOfGodApplication.getPlayer() : TowerOfGodApplication.getEnemyPlayer();
+        this.currentHP = player.getPlayerDummy().getCurrentHP();
+        this.maxHP = player.getPlayerDummy().getMaxHP();
         setHealthPointsProgressBar();
         setCurrentHealthPointsLable();
-        TowerOfGodApplication.getEventBus().addListener(MaxHealthChangeEvent.class, this::onMaxHealthChangeEvent);
-        TowerOfGodApplication.getEventBus().addListener(CurrentHealthChangeEvent.class, this::onCurrentHealthChangeEvent);
+        registerInEventBus();
     }
 
-    public void onMaxHealthChangeEvent(MaxHealthChangeEvent event){
+    public void registerInEventBus(){
+        if(isPlayer){
+            TowerOfGodApplication.getEventBus().addListener(PlayerMaxHealthChangeEvent.class, this::onPlayerMaxHealthChangeEvent);
+            TowerOfGodApplication.getEventBus().addListener(PlayerCurrentHealthChangeEvent.class, this::onPlayerCurrentHealthChangeEvent);
+        }else{
+            TowerOfGodApplication.getEventBus().addListener(EnemyMaxHealthChangeEvent.class, this::onEnemyMaxHealthChangedEvent);
+            TowerOfGodApplication.getEventBus().addListener(EnemyCurrentHealthChangeEvent.class, this::onEnemyCurrentHealthChangedEvent);
+        }
+    }
+
+    private void onEnemyCurrentHealthChangedEvent(EnemyCurrentHealthChangeEvent event) {
+        this.currentHP = event.getCurrentHP();
+        setCurrentHealthPointsLable();
+        setHealthPointsProgressBar();
+    }
+
+    private void onEnemyMaxHealthChangedEvent(EnemyMaxHealthChangeEvent event) {
         this.maxHP = event.getNewMaxHP();
         setCurrentHealthPointsLable();
         setHealthPointsProgressBar();
     }
 
-    public void onCurrentHealthChangeEvent(CurrentHealthChangeEvent event){
+    public void onPlayerMaxHealthChangeEvent(PlayerMaxHealthChangeEvent event){
+        this.maxHP = event.getNewMaxHP();
+        setCurrentHealthPointsLable();
+        setHealthPointsProgressBar();
+    }
+
+    public void onPlayerCurrentHealthChangeEvent(PlayerCurrentHealthChangeEvent event){
         this.currentHP = event.getCurrentHP();
         setCurrentHealthPointsLable();
         setHealthPointsProgressBar();

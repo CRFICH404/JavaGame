@@ -21,13 +21,7 @@ public class InventoryAndHPController extends SceneController implements Initial
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
-            Pane pane = new Pane();
-            pane.setPrefHeight(60);
-            Pane pane1 = new Pane();
-            pane1.setPrefHeight(60);
-            inventoryAndHPVBox.getChildren().add(pane);
             loadViewToContainer(SceneLoader.getNode("active-inventory.fxml", () -> new ActiveInventoryController(isPlayer)), inventoryAndHPVBox);
-            inventoryAndHPVBox.getChildren().add(pane1);
             loadViewToContainer(SceneLoader.getNode("health-points.fxml", () -> new HealthBarController(isPlayer)), inventoryAndHPVBox);
         } catch (Exception e) {
             throw new RuntimeException(e);

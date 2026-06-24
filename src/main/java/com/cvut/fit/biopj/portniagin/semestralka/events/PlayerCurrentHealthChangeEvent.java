@@ -1,8 +1,8 @@
 package com.cvut.fit.biopj.portniagin.semestralka.events;
 
-public class CurrentHealthChangeEvent implements AppEvent{
+public class PlayerCurrentHealthChangeEvent implements AppEvent{
     private final int newCurrentHP;
-    public CurrentHealthChangeEvent (int newCurrentHP){
+    public PlayerCurrentHealthChangeEvent(int newCurrentHP){
         this.newCurrentHP = newCurrentHP;
     }
     public int getCurrentHP(){

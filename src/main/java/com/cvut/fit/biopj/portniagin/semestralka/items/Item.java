@@ -64,9 +64,7 @@ public class Item implements Runnable{
     }
 
     @Override
-    public void run() {
-        TowerOfGodApplication.getEventBus().fire(new ItemTiggerEvent(this));
-    }
+    public void run() {}
     @Override
     public String toString() {
         String itemEffects = "";

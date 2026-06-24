@@ -1,8 +1,8 @@
 package com.cvut.fit.biopj.portniagin.semestralka.events;
 
-public class MaxHealthChangeEvent implements AppEvent{
+public class PlayerMaxHealthChangeEvent implements AppEvent{
     private final int newMaxHP;
-    public MaxHealthChangeEvent(int newMaxHP) {
+    public PlayerMaxHealthChangeEvent(int newMaxHP) {
         this.newMaxHP = newMaxHP;
     }
     public int getNewMaxHP() {return this.newMaxHP;}

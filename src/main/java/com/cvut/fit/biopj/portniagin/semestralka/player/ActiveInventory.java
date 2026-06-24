@@ -11,12 +11,22 @@ public class ActiveInventory {
     private final int MAX_ITEMS = 6;
     private final Item [] items = new Item [MAX_ITEMS];
     private PlayerDummy holder;
+    private Runnable deregisterSwap;
 
     public ActiveInventory() {}
 
     public ActiveInventory(PlayerDummy holder){
         this.holder = holder;
-        if(holder.getDummyHolder().isPlayer()){TowerOfGodApplication.getEventBus().addListener(SwapActiveInventoryItemsEvent.class, this::onSwapItemsEvent);}
+        if(holder.getDummyHolder().isPlayer()){
+            deregisterSwap = TowerOfGodApplication.getEventBus().addListener(SwapActiveInventoryItemsEvent.class, this::onSwapItemsEvent);
+        }
+    }
+
+    public void deregister() {
+        if (deregisterSwap != null) {
+            deregisterSwap.run();
+            deregisterSwap = null;
+        }
     }
 
     private void onSwapItemsEvent(SwapActiveInventoryItemsEvent swapActiveInventoryItemsEvent) {

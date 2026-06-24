@@ -2,10 +2,7 @@ package com.cvut.fit.biopj.portniagin.semestralka.application;
 
 import com.cvut.fit.biopj.portniagin.semestralka.eventListeners.GenericEventListener;
 import com.cvut.fit.biopj.portniagin.semestralka.eventListeners.RerollEventListener;
-import com.cvut.fit.biopj.portniagin.semestralka.events.BuyItemEvent;
-import com.cvut.fit.biopj.portniagin.semestralka.events.ItemShopUpdatedEvent;
-import com.cvut.fit.biopj.portniagin.semestralka.events.RemoveItemFromShopEvent;
-import com.cvut.fit.biopj.portniagin.semestralka.events.RerollEvent;
+import com.cvut.fit.biopj.portniagin.semestralka.events.*;
 import com.cvut.fit.biopj.portniagin.semestralka.items.Item;
 
 import java.util.ArrayList;
@@ -22,6 +19,7 @@ public class ItemShop {
         populateItemShop();
         TowerOfGodApplication.getEventBus().addListener(RerollEvent.class, this::onRerollEvent);
         TowerOfGodApplication.getEventBus().addListener(BuyItemEvent.class, this::onBuyItemEvent);
+        TowerOfGodApplication.getEventBus().addListener(StartOfDayEvent.class, this::onStartOfDayEvent);
     }
 
     public void freeShopItems(){
@@ -78,6 +76,10 @@ public class ItemShop {
     }
     public void onBuyItemEvent(BuyItemEvent event){
         removeItem(event.getItem());
+    }
+    public void onStartOfDayEvent(StartOfDayEvent event){
+        if(isFrozen)populateItemShop();
+        else repopulateItemShop();
     }
     public Item [] getItems(){
         return items;

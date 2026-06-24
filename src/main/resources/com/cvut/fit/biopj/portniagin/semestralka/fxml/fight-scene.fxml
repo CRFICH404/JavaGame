@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="fightBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cvut.fit.biopj.portniagin.semestralka.controllers.FightController">
+<BorderPane fx:id="fightBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cvut.fit.biopj.portniagin.semestralka.controllers.FightController">
    <center>
       <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
@@ -22,6 +22,11 @@
                </VBox.margin>
                <children>
                   <Button fx:id="startOfCombatButton" mnemonicParsing="false" onAction="#onStartOfCombatButtonClicked" text="START" textAlignment="CENTER" wrapText="true">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="backToShopButton" disable="true" mnemonicParsing="false" onAction="#onBackToShopButtonClicked" text="TO SHOP" textAlignment="CENTER" visible="false" wrapText="true">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font>

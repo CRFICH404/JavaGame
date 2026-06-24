@@ -1,8 +1,12 @@
 package com.cvut.fit.biopj.portniagin.semestralka.controllers;
 
+import com.cvut.fit.biopj.portniagin.semestralka.application.FightScheduler;
 import com.cvut.fit.biopj.portniagin.semestralka.application.SceneLoader;
 import com.cvut.fit.biopj.portniagin.semestralka.application.TowerOfGodApplication;
+import com.cvut.fit.biopj.portniagin.semestralka.events.FightEndEvent;
+import com.cvut.fit.biopj.portniagin.semestralka.events.FightLostEvent;
 import com.cvut.fit.biopj.portniagin.semestralka.events.StartOfCombatEvent;
+import com.cvut.fit.biopj.portniagin.semestralka.events.StartOfDayEvent;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -23,6 +27,9 @@ public class FightController extends SceneController implements Initializable {
     @FXML public VBox playerDummyVBox;
     @FXML public VBox enemyDummyVBox;
     @FXML public Button startOfCombatButton;
+    @FXML public Button backToShopButton;
+
+    private final FightScheduler fightScheduler = new FightScheduler();
 
     @Override
     public void initialize(URL url, ResourceBundle rb){
@@ -32,6 +39,7 @@ public class FightController extends SceneController implements Initializable {
             loadViewToContainer(SceneLoader.getNode("user-info.fxml", () -> new UserInfoController(false)), enemyDummyVBox);
             loadViewToContainer(SceneLoader.getNode("inventory-and-hp.fxml", () -> new InventoryAndHPController(false)), enemyDummyVBox);
             loadViewToContainer("session-state.fxml", sessionStateVBox);
+            TowerOfGodApplication.getEventBus().addListener(FightEndEvent.class, this::onFightEndEvent);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -40,14 +48,28 @@ public class FightController extends SceneController implements Initializable {
 
     @FXML
     public void onForfeitButtonClick(ActionEvent actionEvent) {
+        TowerOfGodApplication.getEventBus().fire(new FightEndEvent());
+        TowerOfGodApplication.getEventBus().fire(new FightLostEvent());
+    }
+
+    public void onStartOfCombatButtonClicked(ActionEvent actionEvent) {
+        startOfCombatButton.setVisible(false);
+        startOfCombatButton.setDisable(true);
+        System.out.println("Start of Combat Button clicked");
+        TowerOfGodApplication.getEventBus().fire(new StartOfCombatEvent());
+        fightScheduler.start(TowerOfGodApplication.getPlayer(), TowerOfGodApplication.getEnemyPlayer());
+    }
+
+    public void onBackToShopButtonClicked(ActionEvent actionEvent) {
+        TowerOfGodApplication.getEventBus().fire(new StartOfDayEvent());
         SceneController.stage.setScene(SceneLoader.getLastScene());
         SceneLoader.setLastScene(forfeitButton.getScene());
     }
 
-    public void onStartOfCombatButtonClicked(ActionEvent actionEvent) {
-        startOfCombatButton.getScene().getWindow().hide();
-        System.out.println("Start of Combat Button clicked");
-        TowerOfGodApplication.getEventBus().fire(new StartOfCombatEvent());
+    public void onFightEndEvent(FightEndEvent fightEndEvent) {
+        fightScheduler.stop();
+        TowerOfGodApplication.getEnemyPlayer().deregister();
+        backToShopButton.setDisable(false);
+        backToShopButton.setVisible(true);
     }
-
 }

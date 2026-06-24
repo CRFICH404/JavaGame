@@ -44,4 +44,10 @@ public class Player{
     }
 
     public boolean isPlayer() {return isPlayer;}
+
+    public void deregister() {
+        if (playerDummy != null) {
+            playerDummy.deregister();
+        }
+    }
 }

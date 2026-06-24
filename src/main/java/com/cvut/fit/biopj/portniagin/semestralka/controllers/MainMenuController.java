@@ -62,6 +62,9 @@ public class MainMenuController extends SceneController implements Initializable
     @FXML
     protected void onPlayButtonClick() throws IOException {
         TowerOfGodApplication.setSession(new Session());
+        if(TowerOfGodApplication.getPlayer() != null) {
+            TowerOfGodApplication.getPlayer().deregister();
+        }
         TowerOfGodApplication.setPlayer(new Player(Integer.parseInt(rating), this.username, true));
         TowerOfGodApplication.setEnemyPlayer(null);
         TowerOfGodApplication.setItemShop(new ItemShop());

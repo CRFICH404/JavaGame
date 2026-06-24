@@ -6,6 +6,7 @@ import com.cvut.fit.biopj.portniagin.semestralka.application.TowerOfGodApplicati
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import org.apache.xmlbeans.impl.xb.xsdschema.Attribute;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -18,6 +19,7 @@ public class UserInfoController extends SceneController implements Initializable
 
     private String username;
     private String rating;
+    private boolean isPlayer;
 
     public UserInfoController() {
         if(TowerOfGodApplication.getUser() == null) {
@@ -33,6 +35,40 @@ public class UserInfoController extends SceneController implements Initializable
             dBconnector.close();
         }catch(Exception e){
             throw new RuntimeException(e);
+        }
+    }
+
+    public UserInfoController(boolean isPlayer){
+        if(isPlayer){
+            if(TowerOfGodApplication.getUser() == null) {
+                this.username = "test";
+                this.rating = "120";
+                return;
+            }
+            this.username = TowerOfGodApplication.getUser().getUsername();
+            try{
+                DBconnector dBconnector = new DBconnector();
+                DBLoader dbLoader = new DBLoader(dBconnector);
+                this.rating = String.valueOf(dbLoader.getRatingByUsername(username.toLowerCase()));
+                dBconnector.close();
+            }catch(Exception e){
+                throw new RuntimeException(e);
+            }
+        }
+        else{
+            if(TowerOfGodApplication.getEnemyPlayer() == null) {
+                this.username = "test-enemy";
+                this.rating = "1337";
+            }else{
+                this.username = TowerOfGodApplication.getEnemyPlayer().getUsername();
+                try{DBconnector dBconnector = new DBconnector();
+                    DBLoader dbLoader = new DBLoader(dBconnector);
+                    this.rating = String.valueOf(dbLoader.getRatingByUsername(username.toLowerCase()));
+                    dBconnector.close();
+                }catch(Exception e){
+                    throw new RuntimeException(e);
+                }
+            }
         }
     }
 

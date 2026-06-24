@@ -9,6 +9,7 @@ import com.cvut.fit.biopj.portniagin.semestralka.events.LevelUpEvent;
 import com.cvut.fit.biopj.portniagin.semestralka.events.RemoveItemFromShopEvent;
 import com.cvut.fit.biopj.portniagin.semestralka.events.RerollEvent;
 import com.cvut.fit.biopj.portniagin.semestralka.items.Item;
+import com.cvut.fit.biopj.portniagin.semestralka.player.Player;
 import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
@@ -58,6 +59,7 @@ public class ShopController extends SceneController implements Initializable {
 
     @FXML
     private void onFightButtonClick(ActionEvent event) throws IOException {
+        TowerOfGodApplication.setEnemyPlayer(new Player(1337, "test-enemy321", false));
         SceneLoader.setLastScene(SceneController.stage.getScene());
         SceneController.setNewScene(SceneLoader.getScene("fight-scene.fxml"));
     }
@@ -118,7 +120,7 @@ public class ShopController extends SceneController implements Initializable {
             try {
                 int [] cords = {iter/4, iter%4};
                 System.out.println(String.format("Adding to Col: %d, Row: %d.", iter % 4, iter / 4));
-                itemShopGridPane.add(SceneLoader.getNode("item-pane.fxml", item, cords), iter % 4, iter / 4);
+                itemShopGridPane.add(SceneLoader.getNode("item-pane.fxml", () -> new ItemController(item, cords)), iter % 4, iter / 4);
                 iter++;
             } catch (IOException e) {
                 throw new RuntimeException(e);

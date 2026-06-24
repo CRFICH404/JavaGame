@@ -110,8 +110,9 @@ public class DBLoader {
                         rs.getInt("CURRENT_WINS")
                     );
                     Player player = new Player(
-                        rs.getInt("PLAYER_RATING"),
-                        rs.getString("PLAYER_USERNAME")
+                                rs.getInt("PLAYER_RATING"),
+                                rs.getString("PLAYER_USERNAME"),
+                        false
                     );
                     PlayerDummy dummy = player.getPlayerDummy();
                     dummy.setMaxHP(rs.getInt("PLAYER_MAX_HP"));

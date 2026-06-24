@@ -17,8 +17,13 @@ public class HealthBarController extends SceneController implements Initializabl
     @FXML
     private ProgressBar healthPointsProgressBar;
 
-    int currentHP;
-    int maxHP;
+    private int currentHP;
+    private int maxHP;
+    private final boolean isPlayer;
+
+    public HealthBarController (boolean isPlayer) {
+        this.isPlayer = isPlayer;
+    }
 
     @Override
     public void initialize (URL url, ResourceBundle rb){
@@ -44,5 +49,5 @@ public class HealthBarController extends SceneController implements Initializabl
 
     public void setCurrentHealthPointsLable() {this.currentHealthPointsLable.setText(this.currentHP + "/" + this.maxHP);}
     public void setHealthPointsProgressBar() {this.healthPointsProgressBar.setProgress((double) this.currentHP / this.maxHP);}
-
+    public boolean isPlayer() {return isPlayer;}
 }

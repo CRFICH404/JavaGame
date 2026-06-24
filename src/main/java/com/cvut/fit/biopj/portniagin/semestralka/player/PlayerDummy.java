@@ -2,10 +2,9 @@ package com.cvut.fit.biopj.portniagin.semestralka.player;
 
 import com.cvut.fit.biopj.portniagin.semestralka.application.TowerOfGodApplication;
 import com.cvut.fit.biopj.portniagin.semestralka.events.*;
-import com.cvut.fit.biopj.portniagin.semestralka.events.AddToActiveInventoryEvent;
+import com.cvut.fit.biopj.portniagin.semestralka.events.AddToActiveInventoryFromShopEvent;
 import com.cvut.fit.biopj.portniagin.semestralka.items.Inventory;
 import com.cvut.fit.biopj.portniagin.semestralka.statusEffects.StatusEffectsList;
-import org.apache.poi.ss.formula.functions.T;
 
 public class PlayerDummy {
     private int currentHP;
@@ -28,13 +27,15 @@ public class PlayerDummy {
         this.playerMoney = 60;
         this.effects = new StatusEffectsList();
         this.inventory = new Inventory(this);
-        this.activeInventory = new ActiveInventory(this);
         this.dummyHolder = player;
-        TowerOfGodApplication.getEventBus().addListener(RerollEvent.class, this::onReroll);
-        TowerOfGodApplication.getEventBus().addListener(LevelUpEvent.class, this::onLevelUp);
-        TowerOfGodApplication.getEventBus().addListener(StartOfDayEvent.class, this::onDayStart);
-        TowerOfGodApplication.getEventBus().addListener(BuyItemEvent.class, this::onBuyItemEvent);
-        TowerOfGodApplication.getEventBus().addListener(AddToActiveInventoryEvent.class, this::onAddToActiveInventoryEvent);
+        this.activeInventory = new ActiveInventory(this);
+        if(dummyHolder.isPlayer()) {
+            TowerOfGodApplication.getEventBus().addListener(RerollEvent.class, this::onReroll);
+            TowerOfGodApplication.getEventBus().addListener(LevelUpEvent.class, this::onLevelUp);
+            TowerOfGodApplication.getEventBus().addListener(StartOfDayEvent.class, this::onDayStart);
+            TowerOfGodApplication.getEventBus().addListener(BuyItemEvent.class, this::onBuyItemEvent);
+            TowerOfGodApplication.getEventBus().addListener(AddToActiveInventoryFromShopEvent.class, this::onAddToActiveInventoryEvent);
+        }
     }
 
     public PlayerDummy(int maxHP, int playerLVL, Player dummyHolder) {
@@ -55,7 +56,7 @@ public class PlayerDummy {
         TowerOfGodApplication.getEventBus().fire(new MoneyChangeEvent(this.playerMoney));
     }
 
-    public void onAddToActiveInventoryEvent(AddToActiveInventoryEvent event) {
+    public void onAddToActiveInventoryEvent(AddToActiveInventoryFromShopEvent event) {
         this.activeInventory.addItem(event.getIndex(),  event.getItem());
     }
 

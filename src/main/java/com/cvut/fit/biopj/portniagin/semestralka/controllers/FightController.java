@@ -27,8 +27,10 @@ public class FightController extends SceneController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb){
         try{
-            loadViewToContainer("inventory-and-hp.fxml", playerDummyVBox);
-            loadViewToContainer("inventory-and-hp.fxml", enemyDummyVBox);
+            loadViewToContainer(SceneLoader.getNode("user-info.fxml", () -> new UserInfoController(true)), playerDummyVBox);
+            loadViewToContainer(SceneLoader.getNode("inventory-and-hp.fxml", () -> new InventoryAndHPController(true)), playerDummyVBox);
+            loadViewToContainer(SceneLoader.getNode("user-info.fxml", () -> new UserInfoController(false)), enemyDummyVBox);
+            loadViewToContainer(SceneLoader.getNode("inventory-and-hp.fxml", () -> new InventoryAndHPController(false)), enemyDummyVBox);
             loadViewToContainer("session-state.fxml", sessionStateVBox);
         } catch (IOException e) {
             throw new RuntimeException(e);

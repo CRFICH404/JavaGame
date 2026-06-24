@@ -2,6 +2,7 @@ package com.cvut.fit.biopj.portniagin.semestralka.application;
 
 import com.cvut.fit.biopj.portniagin.semestralka.eventListeners.GenericEventListener;
 import com.cvut.fit.biopj.portniagin.semestralka.eventListeners.RerollEventListener;
+import com.cvut.fit.biopj.portniagin.semestralka.events.BuyItemEvent;
 import com.cvut.fit.biopj.portniagin.semestralka.events.ItemShopUpdatedEvent;
 import com.cvut.fit.biopj.portniagin.semestralka.events.RemoveItemFromShopEvent;
 import com.cvut.fit.biopj.portniagin.semestralka.events.RerollEvent;
@@ -20,6 +21,7 @@ public class ItemShop {
     public ItemShop() {
         populateItemShop();
         TowerOfGodApplication.getEventBus().addListener(RerollEvent.class, this::onRerollEvent);
+        TowerOfGodApplication.getEventBus().addListener(BuyItemEvent.class, this::onBuyItemEvent);
     }
 
     public void freeShopItems(){
@@ -73,6 +75,9 @@ public class ItemShop {
     public void repopulateItemShop(){
         freeShopItems();
         populateItemShop();
+    }
+    public void onBuyItemEvent(BuyItemEvent event){
+        removeItem(event.getItem());
     }
     public Item [] getItems(){
         return items;

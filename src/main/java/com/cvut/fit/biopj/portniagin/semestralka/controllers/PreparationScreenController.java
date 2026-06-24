@@ -1,5 +1,6 @@
 package com.cvut.fit.biopj.portniagin.semestralka.controllers;
 
+import com.cvut.fit.biopj.portniagin.semestralka.application.SceneLoader;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.HBox;
@@ -18,8 +19,8 @@ public class PreparationScreenController extends SceneController implements Init
     public void initialize (URL url, ResourceBundle rb){
         inventoryAndHPBarVBox.getChildren().clear();
         try {
-            loadViewToContainer("user-info.fxml", inventoryAndHPBarVBox);
-            loadViewToContainer("inventory-and-hp.fxml", inventoryAndHPBarVBox);
+            loadViewToContainer(SceneLoader.getNode("user-info.fxml", () -> new UserInfoController(true)), inventoryAndHPBarVBox);
+            loadViewToContainer(SceneLoader.getNode("inventory-and-hp.fxml", () -> new InventoryAndHPController(true)), inventoryAndHPBarVBox);
             loadViewToContainer("money-level-inventory.fxml", levelAndItemsHBox);
             loadViewToContainer("shop-panel.fxml", shopVBox);
         } catch (IOException e) {

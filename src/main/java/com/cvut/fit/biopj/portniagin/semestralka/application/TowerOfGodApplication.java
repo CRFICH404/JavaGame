@@ -18,6 +18,7 @@ public class TowerOfGodApplication extends Application {
     private static User user;
     private static Session session;
     private static Player player;
+    private static Player enemyPlayer;
     private static ItemShop shop;
 
 
@@ -56,6 +57,8 @@ public class TowerOfGodApplication extends Application {
     public static void setSession(Session newSession){ session = newSession; }
     public static Player getPlayer() { return player; }
     public static void setPlayer(Player newPlayer){ player = newPlayer; }
+    public static Player getEnemyPlayer () { return enemyPlayer; }
+    public static void setEnemyPlayer(Player newEnemyPlayer) {enemyPlayer = newEnemyPlayer;}
     public static void setItemShop(ItemShop itemShop) { shop = itemShop; }
     public static ItemShop getItemShop() { return shop; }
 }

@@ -3,16 +3,19 @@ package com.cvut.fit.biopj.portniagin.semestralka.player;
 public class Player{
     private int rating;
     private String username;
+    private final boolean isPlayer;
     private PlayerDummy playerDummy;
 
     public Player(){
         this.rating = 0;
         this.username = "";
+        this.isPlayer = true;
         this.playerDummy = null;
     }
-    public Player(int rating, String username){
+    public Player(int rating, String username, boolean isPlayer){
         this.rating = rating;
         this.username = username;
+        this.isPlayer = isPlayer;
         this.playerDummy = new PlayerDummy(this);
     }
 
@@ -39,4 +42,6 @@ public class Player{
     public void setPlayerDummy(PlayerDummy playerDummy) {
         this.playerDummy = playerDummy;
     }
+
+    public boolean isPlayer() {return isPlayer;}
 }

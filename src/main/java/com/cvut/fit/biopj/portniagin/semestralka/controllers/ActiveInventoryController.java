@@ -4,6 +4,7 @@ import com.cvut.fit.biopj.portniagin.semestralka.application.SceneLoader;
 import com.cvut.fit.biopj.portniagin.semestralka.application.TowerOfGodApplication;
 import com.cvut.fit.biopj.portniagin.semestralka.events.*;
 import com.cvut.fit.biopj.portniagin.semestralka.items.Item;
+import com.cvut.fit.biopj.portniagin.semestralka.player.Player;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -21,12 +22,17 @@ public class ActiveInventoryController extends SceneController implements Initia
     @FXML GridPane activeInventoryGridPane;
 
     private final boolean[][] occupiedSlots = new boolean[3][2]; // [row][col]
+    private final boolean isPlayer;
+
+    public ActiveInventoryController(boolean isPlayer) { this.isPlayer = isPlayer; }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        setupDropTarget();
         reRenderGridPane();
-        TowerOfGodApplication.getEventBus().addListener(ActiveInventoryUpdatedEvent.class, this::onActiveInventoryUpdateEvent);
+        if (isPlayer) {
+            setupDropTarget();
+            TowerOfGodApplication.getEventBus().addListener(ActiveInventoryUpdatedEvent.class, this::onActiveInventoryUpdateEvent);
+        }
     }
 
     private void setupDropTarget() {
@@ -52,7 +58,7 @@ public class ActiveInventoryController extends SceneController implements Initia
                         if (item != null && TowerOfGodApplication.getPlayer() != null
                                 && TowerOfGodApplication.getPlayer().getPlayerDummy().getPlayerMoney() >= item.getItemCost()
                                 && !occupiedSlots[row][col] && (row * 2 + col) < 6) {
-                            TowerOfGodApplication.getEventBus().fire(new AddToActiveInventoryEvent((row * 2 + col), item));
+                            TowerOfGodApplication.getEventBus().fire(new AddToActiveInventoryFromShopEvent((row * 2 + col), item));
                             TowerOfGodApplication.getEventBus().fire(new RemoveItemFromShopEvent(item));
                             TowerOfGodApplication.getEventBus().fire(new BuyItemEvent(item));
                             placeItemAt(col, row, item);
@@ -106,7 +112,7 @@ public class ActiveInventoryController extends SceneController implements Initia
 
     private void placeItemAt(int col, int row, Item item) {
         try {
-            Pane newPane = (Pane) SceneLoader.getNode("item-pane.fxml", item, new int[]{row, col});
+            Pane newPane = (Pane) SceneLoader.getNode("item-pane.fxml", () -> new ItemController(item, new int[]{row, col}));
             activeInventoryGridPane.add(newPane, col, row);
             occupiedSlots[row][col] = true;
         } catch (Exception e) {
@@ -134,17 +140,20 @@ public class ActiveInventoryController extends SceneController implements Initia
 
     public void populateActiveInventoryGridPane() {
         int iter = 0;
-        for(Item item : TowerOfGodApplication.getPlayer().getPlayerDummy().getActiveInventory().getItems()){
+        Player player = isPlayer ? TowerOfGodApplication.getPlayer() : TowerOfGodApplication.getEnemyPlayer();
+        for(Item item : player.getPlayerDummy().getActiveInventory().getItems()){
             if(item == null){iter++; continue;}
             System.out.println(String.format("Adding item %s", item.toString()));
             try {
                 int [] cords = {iter/2, iter%2};
                 System.out.println(String.format("Adding to Col: %d, Row: %d.", iter % 2, iter / 2));
-                activeInventoryGridPane.add(SceneLoader.getNode("item-pane.fxml", item, cords), iter % 2, iter / 2);
+                activeInventoryGridPane.add(SceneLoader.getNode("item-pane.fxml", () -> new ItemController(item, cords)), iter % 2, iter / 2);
                 iter++;
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         }
     }
+
+    public boolean isPlayer() { return isPlayer; }
 }

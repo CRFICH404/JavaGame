@@ -8,5 +8,12 @@
       <jdbc-url>jdbc:derby:$PROJECT_DIR$/src/main/resources/com/cvut/fit/biopj/portniagin/semestralka/database/data-items</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="users-db" uuid="e6272468-8171-43a2-9580-bc43e8511939">
+      <driver-ref>derby.embedded</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.apache.derby.jdbc.EmbeddedDriver</jdbc-driver>
+      <jdbc-url>jdbc:derby:C:\Users\crfich\IdeaProjects\Semestralka\src\main\resources\com\cvut\fit\biopj\portniagin\semestralka\database\users-db</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>

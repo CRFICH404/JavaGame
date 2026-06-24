@@ -7,32 +7,26 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cvut.fit.biopj.portniagin.semestralka.controllers.HealthBarController">
+<VBox alignment="CENTER"
+      style="-fx-background-color: #2a1505; -fx-border-color: #6b3a15; -fx-border-width: 2 0 0 0;"
+      xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.cvut.fit.biopj.portniagin.semestralka.controllers.HealthBarController">
+   <padding><Insets bottom="12.0" left="12.0" right="12.0" top="12.0" /></padding>
    <children>
       <HBox alignment="CENTER">
          <children>
-            <Label text="HP:" textAlignment="CENTER">
-               <font>
-                  <Font name="System Bold" size="20.0" />
-               </font>
-               <HBox.margin>
-                  <Insets bottom="10.0" left="20.0" right="5.0" top="10.0" />
-               </HBox.margin>
+            <Label text="HP:" textAlignment="CENTER" style="-fx-text-fill: #f0d898;">
+               <font><Font name="Georgia Bold" size="18.0" /></font>
+               <HBox.margin><Insets right="6.0" /></HBox.margin>
             </Label>
-            <Label fx:id="currentHealthPointsLable" text="123/321" textAlignment="CENTER">
-               <font>
-                  <Font name="System Bold" size="20.0" />
-               </font>
-               <HBox.margin>
-                  <Insets bottom="10.0" left="5.0" right="20.0" top="10.0" />
-               </HBox.margin>
+            <Label fx:id="currentHealthPointsLable" text="500/500" textAlignment="CENTER"
+                   style="-fx-text-fill: #f0d898;">
+               <font><Font name="Georgia Bold" size="18.0" /></font>
             </Label>
          </children>
       </HBox>
-      <ProgressBar fx:id="healthPointsProgressBar" prefHeight="35.0" prefWidth="150.0" progress="0.28">
-         <VBox.margin>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-         </VBox.margin>
+      <ProgressBar fx:id="healthPointsProgressBar" prefHeight="22.0" prefWidth="220.0" progress="1.0">
+         <VBox.margin><Insets top="8.0" /></VBox.margin>
       </ProgressBar>
    </children>
 </VBox>

@@ -113,17 +113,22 @@ public class ShopController extends SceneController implements Initializable {
     }
 
     private void populateShopGridPane(){
-        int iter = 0;
-        for(Item item : TowerOfGodApplication.getItemShop().getItems()){
-            if(item == null){iter++; continue;}
-            System.out.println(String.format("Adding item %s", item.toString()));
-            try {
-                int [] cords = {iter/4, iter%4};
-                System.out.println(String.format("Adding to Col: %d, Row: %d.", iter % 4, iter / 4));
-                itemShopGridPane.add(SceneLoader.getNode("item-pane.fxml", () -> new ItemController(item, cords)), iter % 4, iter / 4);
-                iter++;
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+        Item[] items = TowerOfGodApplication.getItemShop().getItems();
+        for (int i = 0; i < items.length; i++) {
+            int col = i % 4;
+            int row = i / 4;
+            if (items[i] == null) {
+                javafx.scene.layout.Pane empty = new javafx.scene.layout.Pane();
+                empty.setStyle("-fx-background-color: #120a02; -fx-border-color: #6b3a15; -fx-border-width: 1;");
+                itemShopGridPane.add(empty, col, row);
+            } else {
+                final Item item = items[i];
+                final int[] cords = {row, col};
+                try {
+                    itemShopGridPane.add(SceneLoader.getNode("shop-item-pane.fxml", () -> new ItemController(item, cords)), col, row);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             }
         }
     }

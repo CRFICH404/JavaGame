@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER"
+      xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.cvut.fit.biopj.portniagin.semestralka.controllers.ItemController">
+
+   <!-- Colored tile: background set programmatically per rarity -->
+   <Pane fx:id="itemHolderPane" prefHeight="140.0" prefWidth="140.0">
+      <children>
+         <ImageView fx:id="itemImageView" fitHeight="140.0" fitWidth="140.0"
+                    pickOnBounds="true" preserveRatio="true" />
+      </children>
+   </Pane>
+
+   <!-- Price row -->
+   <HBox fx:id="priceBox" alignment="CENTER" spacing="5.0">
+      <padding><Insets bottom="5.0" top="5.0" /></padding>
+      <children>
+         <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+            <image><Image url="@../grafics/gold-coin.png" /></image>
+         </ImageView>
+         <Label fx:id="priceLabel" text="0"
+                style="-fx-text-fill: #ffd700; -fx-font-weight: bold;">
+            <font><Font name="Georgia Bold" size="16.0" /></font>
+         </Label>
+      </children>
+   </HBox>
+</VBox>

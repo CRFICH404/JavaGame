@@ -139,18 +139,23 @@ public class ActiveInventoryController extends SceneController implements Initia
     }
 
     public void populateActiveInventoryGridPane() {
-        int iter = 0;
         Player player = isPlayer ? TowerOfGodApplication.getPlayer() : TowerOfGodApplication.getEnemyPlayer();
-        for(Item item : player.getPlayerDummy().getActiveInventory().getItems()){
-            if(item == null){iter++; continue;}
-            System.out.println(String.format("Adding item %s", item.toString()));
-            try {
-                int [] cords = {iter/2, iter%2};
-                System.out.println(String.format("Adding to Col: %d, Row: %d.", iter % 2, iter / 2));
-                activeInventoryGridPane.add(SceneLoader.getNode("item-pane.fxml", () -> new ItemController(item, cords)), iter % 2, iter / 2);
-                iter++;
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+        Item[] items = player.getPlayerDummy().getActiveInventory().getItems();
+        for (int i = 0; i < items.length; i++) {
+            int col = i % 2;
+            int row = i / 2;
+            if (items[i] == null) {
+                javafx.scene.layout.Pane empty = new javafx.scene.layout.Pane();
+                empty.setStyle("-fx-background-color: #120a02; -fx-border-color: #6b3a15; -fx-border-width: 1;");
+                activeInventoryGridPane.add(empty, col, row);
+            } else {
+                final Item item = items[i];
+                final int[] cords = {row, col};
+                try {
+                    activeInventoryGridPane.add(SceneLoader.getNode("item-pane.fxml", () -> new ItemController(item, cords)), col, row);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             }
         }
     }

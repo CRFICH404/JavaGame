@@ -10,85 +10,60 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cvut.fit.biopj.portniagin.semestralka.controllers.MoneyAndLevelController">
+<HBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.cvut.fit.biopj.portniagin.semestralka.controllers.MoneyAndLevelController"
+      alignment="CENTER_LEFT"
+      style="-fx-background-color: #2a1505;">
+   <padding><Insets bottom="10.0" left="20.0" right="20.0" top="10.0" /></padding>
    <children>
-      <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity">
+      <VBox alignment="CENTER" spacing="6.0">
          <children>
-            <VBox alignment="CENTER">
+            <!-- Gold row -->
+            <HBox alignment="CENTER_LEFT" spacing="8.0">
                <children>
-                  <HBox alignment="CENTER">
+                  <ImageView fx:id="goldCoinImageView" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image><Image url="@../grafics/gold-coin.png" /></image>
+                  </ImageView>
+                  <Label fx:id="totalGoldLabel" text="60" style="-fx-text-fill: #ffd700;">
+                     <font><Font name="Georgia Bold" size="22.0" /></font>
+                  </Label>
+               </children>
+            </HBox>
+
+            <!-- Income + Level row -->
+            <HBox alignment="CENTER_LEFT" spacing="24.0">
+               <children>
+                  <HBox alignment="CENTER_LEFT" spacing="6.0">
                      <children>
-                        <ImageView fx:id="goldCoinImageView" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
-                           <HBox.margin>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </HBox.margin>
-                           <image>
-                              <Image url="@../grafics/gold-coin.png" />
-                           </image>
-                        </ImageView>
-                        <Label fx:id="totalGoldLabel" text="60" textAlignment="CENTER">
-                           <HBox.margin>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </HBox.margin>
-                           <font>
-                              <Font name="System Bold" size="20.0" />
-                           </font>
+                        <Label text="Income:" style="-fx-text-fill: #c8942a;">
+                           <font><Font name="Georgia Bold" size="13.0" /></font>
+                        </Label>
+                        <Label fx:id="currentIncomeLabel" text="40" style="-fx-text-fill: #f0d898;">
+                           <font><Font name="Georgia Bold" size="13.0" /></font>
                         </Label>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER">
+                  <HBox alignment="CENTER_LEFT" spacing="6.0">
                      <children>
-                        <Label text="Inclome:" textAlignment="CENTER">
-                           <HBox.margin>
-                              <Insets bottom="10.0" left="10.0" right="5.0" top="10.0" />
-                           </HBox.margin>
-                           <font>
-                              <Font name="System Bold" size="15.0" />
-                           </font>
+                        <Label text="Level:" style="-fx-text-fill: #c8942a;">
+                           <font><Font name="Georgia Bold" size="13.0" /></font>
                         </Label>
-                        <Label fx:id="currentIncomeLabel" text="45" textAlignment="CENTER">
-                           <HBox.margin>
-                              <Insets bottom="10.0" left="5.0" right="10.0" top="10.0" />
-                           </HBox.margin>
-                           <font>
-                              <Font name="System Bold" size="15.0" />
-                           </font>
+                        <Label fx:id="currentLevel" text="1" style="-fx-text-fill: #f0d898;">
+                           <font><Font name="Georgia Bold" size="13.0" /></font>
                         </Label>
                      </children>
                   </HBox>
                </children>
-            </VBox>
-            <VBox alignment="CENTER">
-               <children>
-                  <HBox alignment="CENTER">
-                     <children>
-                        <Label text="Level:" textAlignment="CENTER">
-                           <HBox.margin>
-                              <Insets bottom="10.0" left="10.0" right="5.0" top="10.0" />
-                           </HBox.margin>
-                           <font>
-                              <Font name="System Bold" size="15.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="currentLevel" text="1" textAlignment="CENTER">
-                           <HBox.margin>
-                              <Insets bottom="10.0" left="5.0" right="10.0" top="10.0" />
-                           </HBox.margin>
-                           <font>
-                              <Font name="System Bold" size="15.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </HBox>
-                  <ProgressBar prefHeight="30.0" prefWidth="200.0" progress="0.0">
-                     <VBox.margin>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </VBox.margin>
-                  </ProgressBar>
-               </children>
-            </VBox>
+            </HBox>
+
+            <!-- XP bar -->
+            <ProgressBar prefHeight="16.0" prefWidth="200.0" progress="0.0" />
          </children>
       </VBox>
-      <TilePane fx:id="inventoryTilePane" prefHeight="200.0" prefWidth="200.0" />
+
+      <TilePane fx:id="inventoryTilePane" prefHeight="100.0" prefWidth="200.0"
+                HBox.hgrow="ALWAYS">
+         <HBox.margin><Insets left="20.0" /></HBox.margin>
+      </TilePane>
    </children>
 </HBox>

@@ -1,16 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<SplitPane fx:id="contentAreaSplitPane" dividerPositions="0.3" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cvut.fit.biopj.portniagin.semestralka.controllers.PreparationScreenController">
+<SplitPane fx:id="contentAreaSplitPane" dividerPositions="0.25"
+           prefHeight="700.0" prefWidth="1100.0"
+           style="-fx-background-color: #1a0b04;"
+           xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.cvut.fit.biopj.portniagin.semestralka.controllers.PreparationScreenController">
+   <stylesheets>
+      <URL value="@styles.css" />
+   </stylesheets>
    <items>
-      <VBox fx:id="inventoryAndHPBarVBox" alignment="BOTTOM_CENTER" />
-      <VBox alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0">
+      <!-- Left: player's active inventory + HP -->
+      <VBox fx:id="inventoryAndHPBarVBox" alignment="BOTTOM_CENTER"
+            style="-fx-background-color: #2a1505; -fx-border-color: #6b3a15; -fx-border-width: 0 3 0 0;" />
+
+      <!-- Right: shop + money/level bar -->
+      <VBox prefHeight="700.0"
+            style="-fx-background-color: #1a0b04;">
          <children>
-            <VBox fx:id="shopVBox" alignment="CENTER" />
-            <HBox fx:id="levelAndItemsHBox" alignment="CENTER_LEFT" prefHeight="100.0" />
+            <VBox fx:id="shopVBox" alignment="CENTER" VBox.vgrow="ALWAYS" />
+            <HBox fx:id="levelAndItemsHBox" alignment="CENTER_LEFT" prefHeight="140.0"
+                  style="-fx-background-color: #2a1505; -fx-border-color: #6b3a15; -fx-border-width: 2 0 0 0;" />
          </children>
       </VBox>
    </items>

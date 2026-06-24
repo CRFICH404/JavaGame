@@ -1,0 +1,110 @@
+/* ============================================================ */
+/*  TOWER OF GOD  –  Dark Wood Fantasy Theme                   */
+/* ============================================================ */
+
+/* ---------- Root / Background ---------- */
+.root {
+    -fx-background-color: #1a0b04;
+    -fx-font-family: "Georgia";
+}
+
+/* ---------- All labels ---------- */
+.label {
+    -fx-text-fill: #f0d898;
+}
+
+/* ---------- Buttons ---------- */
+.button {
+    -fx-background-color: linear-gradient(to bottom, #7a4520, #4a2508);
+    -fx-text-fill: #f0d898;
+    -fx-border-color: #c8942a #a07020 #a07020 #c8942a;
+    -fx-border-width: 2;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.55), 5, 0, 1, 2);
+    -fx-padding: 8 22 8 22;
+}
+
+.button:hover {
+    -fx-background-color: linear-gradient(to bottom, #9a5530, #6a3510);
+    -fx-border-color: #ffd700 #c8942a #c8942a #ffd700;
+    -fx-effect: dropshadow(gaussian, rgba(200,148,42,0.5), 8, 0.2, 0, 0);
+}
+
+.button:pressed {
+    -fx-background-color: linear-gradient(to bottom, #3a1500, #5a2a08);
+    -fx-effect: innershadow(gaussian, rgba(0,0,0,0.7), 6, 0, 1, 1);
+}
+
+.button:disabled {
+    -fx-opacity: 0.35;
+}
+
+/* ---------- HP / XP progress bars ---------- */
+.progress-bar > .track {
+    -fx-background-color: #0d0804;
+    -fx-border-color: #3a1a06;
+    -fx-border-width: 1;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+}
+
+.progress-bar > .bar {
+    -fx-background-color: linear-gradient(to right, #0d6abf, #2196F3, #42a5f5);
+    -fx-background-radius: 5;
+    -fx-background-insets: 1;
+}
+
+/* ---------- Text / Password fields ---------- */
+.text-field,
+.password-field {
+    -fx-background-color: #2a1505;
+    -fx-text-fill: #f0d898;
+    -fx-prompt-text-fill: #6b4020;
+    -fx-border-color: #6b3a15;
+    -fx-border-width: 1;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-highlight-fill: #c8942a;
+    -fx-highlight-text-fill: #1a0b04;
+}
+
+.text-field:focused,
+.password-field:focused {
+    -fx-border-color: #c8942a;
+    -fx-effect: dropshadow(gaussian, rgba(200,148,42,0.4), 6, 0, 0, 0);
+}
+
+/* ---------- Split pane ---------- */
+.split-pane {
+    -fx-background-color: #1a0b04;
+    -fx-border-color: transparent;
+    -fx-padding: 0;
+}
+
+.split-pane > .split-pane-divider {
+    -fx-background-color: #6b3a15;
+    -fx-padding: 0 3 0 3;
+}
+
+/* ---------- Grid pane ---------- */
+.grid-pane {
+    -fx-background-color: #1a0b04;
+}
+
+/* ---------- Transparent backgrounds on layout containers ---------- */
+VBox, HBox, AnchorPane, BorderPane, StackPane, Pane, TilePane {
+    -fx-background-color: transparent;
+}
+
+/* ---------- Scroll bars (safety) ---------- */
+.scroll-bar > .track {
+    -fx-background-color: #1a0b04;
+}
+
+.scroll-bar > .thumb {
+    -fx-background-color: #6b3a15;
+    -fx-background-radius: 3;
+}

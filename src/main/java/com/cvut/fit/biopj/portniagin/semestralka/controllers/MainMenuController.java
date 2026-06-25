@@ -53,6 +53,7 @@ public class MainMenuController extends SceneController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try{
+            if(TowerOfGodApplication.getSession() == null) {TowerOfGodApplication.setSession(new Session());}
             loadViewToContainer("user-info.fxml", playerInfoVBoX);
         }catch(Exception e){
             throw new RuntimeException(e);
@@ -61,7 +62,6 @@ public class MainMenuController extends SceneController implements Initializable
 
     @FXML
     protected void onPlayButtonClick() throws IOException {
-        TowerOfGodApplication.setSession(new Session());
         if(TowerOfGodApplication.getPlayer() != null) {
             TowerOfGodApplication.getPlayer().deregister();
         }

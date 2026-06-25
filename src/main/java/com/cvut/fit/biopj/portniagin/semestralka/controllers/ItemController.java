@@ -66,17 +66,20 @@ public class ItemController extends SceneController implements Initializable {
             dragSourcePane = itemHolderPane;
             Dragboard db = itemHolderPane.startDragAndDrop(TransferMode.MOVE);
             ClipboardContent content = new ClipboardContent();
-            if(itemHolderPane.getParent() instanceof GridPane && itemHolderPane.getParent().getId() != null){
-                switch (itemHolderPane.getParent().getId()) {
+
+            // Walk up the parent chain to find the containing GridPane
+            // (itemHolderPane may be nested inside a VBox in shop-item-pane.fxml)
+            javafx.scene.Parent parent = itemHolderPane.getParent();
+            while (parent != null && !(parent instanceof GridPane)) {
+                parent = parent.getParent();
+            }
+            if (parent instanceof GridPane gridPane && gridPane.getId() != null) {
+                switch (gridPane.getId()) {
                     case "activeInventoryGridPane":
                         content.putString("activeInventoryGridPane " + (coordinatesInGridPane[0] * 2 + coordinatesInGridPane[1]));
-                        System.out.println("activeInventoryGridPane " + (coordinatesInGridPane[0] * 2 + coordinatesInGridPane[1]));
                         break;
                     case "itemShopGridPane":
                         content.putString("itemShopGridPane " + (coordinatesInGridPane[0] * 4 + coordinatesInGridPane[1]));
-                        System.out.println("itemShopGridPane " + (coordinatesInGridPane[0] * 4 + coordinatesInGridPane[1]));
-                        break;
-                    default:
                         break;
                 }
             }

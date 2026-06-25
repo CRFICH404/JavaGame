@@ -20,6 +20,7 @@ public class PlayerDummy {
     private Inventory inventory;
     private ActiveInventory activeInventory;
     private final Player dummyHolder;
+    private volatile boolean combatActive = false;
     private final List<Runnable> deregisterHandlesEnemy = new ArrayList<>();
     private final List<Runnable> deregisterHandlesPlayer = new ArrayList<>();
 
@@ -72,8 +73,8 @@ public class PlayerDummy {
         this.playerMoney = 0;
         this.effects = new StatusEffectsList();
         this.inventory = new Inventory(this);
-        this.activeInventory = new ActiveInventory(this);
         this.dummyHolder = dummyHolder;
+        this.activeInventory = new ActiveInventory(this);
     }
 
     public void onReroll(RerollEvent event){
@@ -108,19 +109,25 @@ public class PlayerDummy {
         TowerOfGodApplication.getEventBus().fire(new PlayerCurrentHealthChangeEvent(this.currentHP));
     }
 
+    public void setCombatActive(boolean active) { this.combatActive = active; }
+
     public void onDamagePlayerEvent(DamagePlayerEvent event){
+        if (!combatActive) return;
         this.currentHP -= event.getItem().getItemDamage();
         TowerOfGodApplication.getEventBus().fire(new PlayerCurrentHealthChangeEvent(currentHP));
         if(this.currentHP < 0){
+            this.combatActive = false;
             TowerOfGodApplication.getEventBus().fire(new FightEndEvent());
             TowerOfGodApplication.getEventBus().fire(new FightLostEvent());
         }
     }
 
     public void onDamageEnemyEvent(DamageEnemyEvent event){
+        if (!combatActive) return;
         this.currentHP -= event.getItem().getItemDamage();
         TowerOfGodApplication.getEventBus().fire(new EnemyCurrentHealthChangeEvent(currentHP));
         if(this.currentHP < 0){
+            this.combatActive = false;
             TowerOfGodApplication.getEventBus().fire(new FightEndEvent());
             TowerOfGodApplication.getEventBus().fire(new FightWonEvent());
         }

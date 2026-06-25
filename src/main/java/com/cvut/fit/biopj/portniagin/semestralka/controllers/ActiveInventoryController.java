@@ -122,7 +122,16 @@ public class ActiveInventoryController extends SceneController implements Initia
     }
 
     public void onActiveInventoryUpdateEvent(ActiveInventoryUpdatedEvent event){
+        updateFreeSlotsInfo();
         reRenderGridPane();
+    }
+
+    public void updateFreeSlotsInfo(){
+        Player player = isPlayer ? TowerOfGodApplication.getPlayer() : TowerOfGodApplication.getEnemyPlayer();
+        Item[] items = player.getPlayerDummy().getActiveInventory().getItems();
+        for(int i = 0; i < items.length; i++){
+            occupiedSlots[i / 2][i % 2] = items[i] != null;
+        }
     }
 
     public void reRenderGridPane() {
@@ -146,13 +155,17 @@ public class ActiveInventoryController extends SceneController implements Initia
             int row = i / 2;
             if (items[i] == null) {
                 javafx.scene.layout.Pane empty = new javafx.scene.layout.Pane();
+                empty.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
                 empty.setStyle("-fx-background-color: #120a02; -fx-border-color: #6b3a15; -fx-border-width: 1;");
                 activeInventoryGridPane.add(empty, col, row);
             } else {
                 final Item item = items[i];
                 final int[] cords = {row, col};
                 try {
-                    activeInventoryGridPane.add(SceneLoader.getNode("item-pane.fxml", () -> new ItemController(item, cords)), col, row);
+                    javafx.scene.Node node = SceneLoader.getNode("item-pane.fxml", () -> new ItemController(item, cords));
+                    GridPane.setFillWidth(node, true);
+                    GridPane.setFillHeight(node, true);
+                    activeInventoryGridPane.add(node, col, row);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }

@@ -9,28 +9,30 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER"
+<VBox alignment="CENTER" maxWidth="Infinity" maxHeight="Infinity"
       xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.cvut.fit.biopj.portniagin.semestralka.controllers.ItemController">
 
    <!-- Colored tile: background set programmatically per rarity -->
-   <Pane fx:id="itemHolderPane" prefHeight="140.0" prefWidth="140.0">
+   <Pane fx:id="itemHolderPane" prefHeight="150.0" prefWidth="150.0"
+         style="-fx-border-color: #000000; -fx-border-width: 1;">
       <children>
-         <ImageView fx:id="itemImageView" fitHeight="140.0" fitWidth="140.0"
+         <ImageView fx:id="itemImageView" fitHeight="150.0" fitWidth="150.0"
                     pickOnBounds="true" preserveRatio="true" />
       </children>
    </Pane>
 
    <!-- Price row -->
-   <HBox fx:id="priceBox" alignment="CENTER" spacing="5.0">
-      <padding><Insets bottom="5.0" top="5.0" /></padding>
+   <HBox alignment="CENTER" spacing="6.0"
+         style="-fx-background-color: #1a0b04; -fx-border-color: #6b3a15; -fx-border-width: 1 0 0 0;">
+      <padding><Insets bottom="6.0" left="8.0" right="8.0" top="6.0" /></padding>
       <children>
-         <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
             <image><Image url="@../grafics/gold-coin.png" /></image>
          </ImageView>
          <Label fx:id="priceLabel" text="0"
                 style="-fx-text-fill: #ffd700; -fx-font-weight: bold;">
-            <font><Font name="Georgia Bold" size="16.0" /></font>
+            <font><Font name="Georgia Bold" size="15.0" /></font>
          </Label>
       </children>
    </HBox>

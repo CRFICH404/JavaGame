@@ -18,6 +18,7 @@ public class FightScheduler {
     private final Map<Item, ScheduledFuture<?>> playerTaskMap = new ConcurrentHashMap<>();
     private final Map<Item, ScheduledFuture<?>> enemyTaskMap  = new ConcurrentHashMap<>();
     private final Map<Item, Runnable>           actionMap     = new ConcurrentHashMap<>();
+    private Runnable deregisterCooldownListener;
 
     public void start(Player player, Player enemyPlayer) {
         if(player != null) {
@@ -34,7 +35,7 @@ public class FightScheduler {
                         TowerOfGodApplication.getEventBus().fire(new DamagePlayerEvent(item))));
             }
         }
-        TowerOfGodApplication.getEventBus().addListener(
+        deregisterCooldownListener = TowerOfGodApplication.getEventBus().addListener(
                 ItemCooldownChangedEvent.class,
                 event -> reschedule(event.getSource())
         );
@@ -46,6 +47,10 @@ public class FightScheduler {
         playerTaskMap.clear();
         enemyTaskMap.clear();
         actionMap.clear();
+        if (deregisterCooldownListener != null) {
+            deregisterCooldownListener.run();
+            deregisterCooldownListener = null;
+        }
         playerExecutor.shutdown();
         enemyExecutor.shutdown();
     }
@@ -63,7 +68,7 @@ public class FightScheduler {
     }
 
     public void schedulePlayerItem(Item item, Runnable action) {
-        long delayMillis = (long) (item.getItemCooldown() * 1000);
+        long delayMillis = (long) (item.getItemCooldown() * 100);
         ScheduledFuture<?> future = playerExecutor.scheduleWithFixedDelay(
                 () -> {
                     try {
@@ -81,7 +86,7 @@ public class FightScheduler {
     }
 
     public void scheduleEnemyItem(Item item, Runnable action) {
-        long delayMillis = (long) (item.getItemCooldown() * 1000);
+        long delayMillis = (long) (item.getItemCooldown() * 100);
         ScheduledFuture<?> future = enemyExecutor.scheduleWithFixedDelay(
                 () -> {
                     try {

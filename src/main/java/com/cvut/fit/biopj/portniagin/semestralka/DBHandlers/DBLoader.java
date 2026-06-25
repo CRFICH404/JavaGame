@@ -98,7 +98,7 @@ public class DBLoader {
     public DaySnapshot loadRandomDaySnapshotForDay(int day) throws SQLException {
         String sql =
             "SELECT SNAPSHOT_ID, DAY, CURRENT_HEALTH, CURRENT_WINS, PLAYER_RATING, PLAYER_USERNAME, PLAYER_MAX_HP, PLAYER_LVL " +
-            "FROM DAY_SNAPSHOTS WHERE DAY = ? ORDER BY rand() FETCH FIRST 1 ROWS ONLY";
+            "FROM DAY_SNAPSHOTS WHERE DAY = ? ORDER BY RANDOM() FETCH FIRST 1 ROWS ONLY";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, day);
             try (ResultSet rs = stmt.executeQuery()) {
@@ -116,6 +116,7 @@ public class DBLoader {
                     );
                     PlayerDummy dummy = player.getPlayerDummy();
                     dummy.setMaxHP(rs.getInt("PLAYER_MAX_HP"));
+                    dummy.setCurrentHP(dummy.getMaxHP());
                     dummy.setPlayerLVL(rs.getInt("PLAYER_LVL"));
                     dummy.setActiveInventory(loadActiveInventory(snapshotId, dummy));
                     return new DaySnapshot(session, player);

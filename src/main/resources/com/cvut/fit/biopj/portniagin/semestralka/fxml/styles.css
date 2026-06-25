@@ -94,11 +94,6 @@
     -fx-background-color: #1a0b04;
 }
 
-/* ---------- Transparent backgrounds on layout containers ---------- */
-VBox, HBox, AnchorPane, BorderPane, StackPane, Pane, TilePane {
-    -fx-background-color: transparent;
-}
-
 /* ---------- Scroll bars (safety) ---------- */
 .scroll-bar > .track {
     -fx-background-color: #1a0b04;

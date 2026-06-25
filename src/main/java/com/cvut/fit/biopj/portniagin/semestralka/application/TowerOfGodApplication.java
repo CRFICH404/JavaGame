@@ -1,5 +1,6 @@
 package com.cvut.fit.biopj.portniagin.semestralka.application;
 import com.cvut.fit.biopj.portniagin.semestralka.controllers.SceneController;
+import com.cvut.fit.biopj.portniagin.semestralka.events.SessionEndEvent;
 import com.cvut.fit.biopj.portniagin.semestralka.items.Item;
 import com.cvut.fit.biopj.portniagin.semestralka.player.Player;
 import com.cvut.fit.biopj.portniagin.semestralka.player.User;
@@ -13,6 +14,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class TowerOfGodApplication extends Application {
+
     private final static EventBus eventBus;
     private static final List<Item> items;
     private static User user;
@@ -20,7 +22,6 @@ public class TowerOfGodApplication extends Application {
     private static Player player;
     private static Player enemyPlayer;
     private static ItemShop shop;
-
 
 
     static {
@@ -40,10 +41,11 @@ public class TowerOfGodApplication extends Application {
         stage.setTitle("TowerOfGod");
         stage.setFullScreenExitHint("");
         stage.setFullScreen(GameSettings.isFullscreen());
-        //stage.setScene(SceneLoader.getScene("log-in-screen.fxml"));
-        stage.setScene(SceneLoader.getScene("main-menu.fxml"));
+        stage.setScene(SceneLoader.getScene("log-in-screen.fxml"));
         stage.show();
     }
+
+
 
     public static EventBus getEventBus() {
         return eventBus;
